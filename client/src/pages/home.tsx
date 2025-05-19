@@ -27,15 +27,18 @@ export default function home() {
                     Jonson de Oliveira
                   </h2>
                 </div>
+                {/* OPÇÕES */}
               </div>
-
               <div className="flex w-full flex-row mt-4">
-                {/* OPCAO 1 */}
-                <Option label="Orçamentos" icon="receipt_long" />
-                <Option label="Clientes" icon="contacts_product" />
-                <Option label="Items" icon="category" />
+                <Option label="Orçamentos" />
+                <Option label="Clientes" />
+                <Option label="Items" />
               </div>
             </div>
+
+            <h1 className="text-blue-950 mt-6 font-bold text-xl w-full border-b-1 pb-1 border-slate-400 ">
+              Últimos Orçamentos
+            </h1>
           </div>
         </div>
       </main>

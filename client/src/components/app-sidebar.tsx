@@ -32,7 +32,7 @@ const items = [
     icon: UsersRound,
   },
   {
-    title: "Items Recorrentes",
+    title: "Itens Recorrentes",
     url: "#",
     icon: ListTodo,
   },
