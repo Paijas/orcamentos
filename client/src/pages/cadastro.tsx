@@ -63,95 +63,102 @@ export default function Cadastro() {
   };
 
   return (
-    <div className="flex w-full min-h-screen bg-blue-950 justify-center items-center py-10">
-      <div className="bg-white w-[28em] flex flex-col h-auto items-center px-6 py-8 gap-4 rounded ">
-        <h1 className="text-2xl font-bold text-slate-800 mb-2">Cadastro</h1>
-        <form onSubmit={handleSubmit} className="w-full flex flex-col gap-4">
-          <div className="w-full">
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Nome *
-            </label>
-            <input
-              type="text"
-              value={nome}
-              onChange={(e) => setNome(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded text-slate-800 focus:ring-2 focus:ring-blue-300 bg-white appearance-none outline-none focus:outline-none"
-              required
-            />
-          </div>
+    <div className="bg-white w-full min-h-screen flex flex-col items-center px-6 py-8 gap-4 rounded ">
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,300,0,200&icon_names=arrow_back"
+      />
+      <button onClick={()=>navigate('/')} className="flex flex-row gap-2 bg-transparent py-1 rounded absolute top-2 left-4 text-blue-950 font-semibold text-lg items-center">
+        <span className="material-symbols-outlined">arrow_back</span> Voltar
+      </button>
 
-          <div className="w-full">
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Sobrenome *
-            </label>
-            <input
-              type="text"
-              value={sobrenome}
-              onChange={(e) => setSobrenome(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded text-slate-800 focus:ring-2 focus:ring-blue-300 bg-white appearance-none outline-none focus:outline-none"
-              required
-            />
-          </div>
+      <h1 className="text-2xl font-bold text-slate-800 mb-2">Cadastro</h1>
+      <form onSubmit={handleSubmit} className="w-full flex flex-col gap-4">
+        <div className="w-full">
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Nome *
+          </label>
+          <input
+            type="text"
+            value={nome}
+            onChange={(e) => setNome(e.target.value)}
+            className="w-full px-3 py-2 border border-gray-300 rounded text-slate-800 focus:ring-2 focus:ring-blue-300 bg-white appearance-none outline-none focus:outline-none"
+            required
+          />
+        </div>
 
-          <div className="w-full">
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Email *
-            </label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded text-slate-800 focus:ring-2 focus:ring-blue-300 bg-white appearance-none outline-none focus:outline-none"
-              required
-            />
-          </div>
+        <div className="w-full">
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Sobrenome *
+          </label>
+          <input
+            type="text"
+            value={sobrenome}
+            onChange={(e) => setSobrenome(e.target.value)}
+            className="w-full px-3 py-2 border border-gray-300 rounded text-slate-800 focus:ring-2 focus:ring-blue-300 bg-white appearance-none outline-none focus:outline-none"
+            required
+          />
+        </div>
 
-          <div className="w-full">
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Tipo de Usuário *
-            </label>
-            <select
-              value={tipoUsuario}
-              onChange={(e) => setTipoUsuario(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded text-slate-800 focus:ring-2 focus:ring-blue-300 bg-white  outline-none focus:outline-none"
-              required
-            >
-              <option value="pf">Pessoa Física (CPF)</option>
-              <option value="pj">Pessoa Jurídica (CNPJ)</option>
-            </select>
-          </div>
+        <div className="w-full">
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Email *
+          </label>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="w-full px-3 py-2 border border-gray-300 rounded text-slate-800 focus:ring-2 focus:ring-blue-300 bg-white appearance-none outline-none focus:outline-none"
+            required
+          />
+        </div>
 
-          <div className="w-full">
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              {tipoUsuario === "pf" ? "CPF *" : "CNPJ *"}
-            </label>
-            <input
-              type="text"
-              value={cpfCnpj}
-              onChange={(e) => setCpfCnpj(e.target.value)}
-              placeholder={
-                tipoUsuario === "pf" ? "Digite seu CPF" : "Digite seu CNPJ"
-              }
-              className="w-full px-3 py-2 border border-gray-300 rounded text-slate-800 focus:ring-2 focus:ring-blue-300 bg-white appearance-none outline-none focus:outline-none"
-              required
-            />
-          </div>
+        <div className="w-full">
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Tipo de Usuário *
+          </label>
+          <select
+            value={tipoUsuario}
+            onChange={(e) => setTipoUsuario(e.target.value)}
+            className="w-full px-3 py-2 border border-gray-300 rounded text-slate-800 focus:ring-2 focus:ring-blue-300 bg-white  outline-none focus:outline-none"
+            required
+          >
+            <option value="pf">Pessoa Física (CPF)</option>
+            <option value="pj">Pessoa Jurídica (CNPJ)</option>
+          </select>
+        </div>
 
-          <div className="w-full">
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Telefone/Celular *
-            </label>
-            <input
-              type="tel"
-              value={telefone}
-              onChange={(e) => setTelefone(e.target.value)}
-              placeholder="(xx) xxxxx-xxxx"
-              className="w-full px-3 py-2 border border-gray-300 rounded text-slate-800 focus:ring-2 focus:ring-blue-300 bg-white appearance-none outline-none focus:outline-none"
-              required
-            />
-          </div>
+        <div className="w-full">
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            {tipoUsuario === "pf" ? "CPF *" : "CNPJ *"}
+          </label>
+          <input
+            type="text"
+            value={cpfCnpj}
+            onChange={(e) => setCpfCnpj(e.target.value)}
+            placeholder={
+              tipoUsuario === "pf" ? "Digite seu CPF" : "Digite seu CNPJ"
+            }
+            className="w-full px-3 py-2 border border-gray-300 rounded text-slate-800 focus:ring-2 focus:ring-blue-300 bg-white appearance-none outline-none focus:outline-none"
+            required
+          />
+        </div>
 
-          {/* <div className="w-full">
+        <div className="w-full">
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Telefone/Celular *
+          </label>
+          <input
+            type="tel"
+            value={telefone}
+            onChange={(e) => setTelefone(e.target.value)}
+            placeholder="(xx) xxxxx-xxxx"
+            className="w-full px-3 py-2 border border-gray-300 rounded text-slate-800 focus:ring-2 focus:ring-blue-300 bg-white appearance-none outline-none focus:outline-none"
+            required
+          />
+        </div>
+
+        {/* <div className="w-full">
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Especialidade *
             </label>
@@ -179,33 +186,33 @@ export default function Cadastro() {
             />
           </div> */}
 
-          <div className="w-full">
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Senha *
-            </label>
-            <input
-              type="password"
-              value={senha}
-              onChange={(e) => setSenha(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded text-slate-800 focus:ring-2 focus:ring-blue-300 bg-white appearance-none outline-none focus:outline-none"
-              required
-            />
-          </div>
+        <div className="w-full">
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Senha *
+          </label>
+          <input
+            type="password"
+            value={senha}
+            onChange={(e) => setSenha(e.target.value)}
+            className="w-full px-3 py-2 border border-gray-300 rounded text-slate-800 focus:ring-2 focus:ring-blue-300 bg-white appearance-none outline-none focus:outline-none"
+            required
+          />
+        </div>
 
-          <div className="w-full">
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Confirmar Senha *
-            </label>
-            <input
-              type="password"
-              value={confirmarSenha}
-              onChange={(e) => setConfirmarSenha(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded text-slate-800 focus:ring-2 focus:ring-blue-300 bg-white appearance-none outline-none focus:outline-none"
-              required
-            />
-          </div>
+        <div className="w-full">
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Confirmar Senha *
+          </label>
+          <input
+            type="password"
+            value={confirmarSenha}
+            onChange={(e) => setConfirmarSenha(e.target.value)}
+            className="w-full px-3 py-2 border border-gray-300 rounded text-slate-800 focus:ring-2 focus:ring-blue-300 bg-white appearance-none outline-none focus:outline-none"
+            required
+          />
+        </div>
 
-          {/* <div className="w-full flex items-center gap-2">
+        {/* <div className="w-full flex items-center gap-2">
             <input
               type="checkbox"
               checked={aceiteTermos}
@@ -225,14 +232,13 @@ export default function Cadastro() {
             </label>
           </div> */}
 
-          <button
-            type="submit"
-            className="bg-blue-950 text-white rounded px-4 py-2 mt-2"
-          >
-            Cadastrar
-          </button>
-        </form>
-      </div>
+        <button
+          type="submit"
+          className="bg-blue-950 text-white rounded px-4 py-2 mt-2"
+        >
+          Cadastrar
+        </button>
+      </form>
     </div>
   );
 }
