@@ -1,12 +1,4 @@
-import {
-  Calendar,
-  Home,
-  CircleUser,
-  Search,
-  Settings,
-  ScrollText,
-  ListTodo,
-} from "lucide-react";
+import { Home, UsersRound, ScrollText, ListTodo } from "lucide-react";
 
 import {
   Sidebar,
@@ -37,7 +29,7 @@ const items = [
   {
     title: "Clientes",
     url: "#",
-    icon: CircleUser,
+    icon: UsersRound,
   },
   {
     title: "Items Recorrentes",
