@@ -1,0 +1,91 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum TipoUsuario {
+  PF
+  PJ
+}
+
+enum TipoCliente {
+  PF
+  PJ
+}
+
+enum StatusOrcamento {
+  Aprovado
+  Pendente
+  Negado
+}
+
+model Usuario {
+  id           Int         @id @default(autoincrement())
+  nome         String
+  email        String      @unique
+  celular      String?
+  senha        String
+  tipo_usuario TipoUsuario
+  documento    String      @unique
+  created_at   DateTime    @default(now())
+  updated_at   DateTime    @default(now())
+  orcamentos   Orcamento[]
+}
+
+model Cliente {
+  id           Int         @id @default(autoincrement())
+  nome         String
+  email        String?     @unique
+  celular      String?
+  tipo_cliente TipoCliente
+  documento    String      @unique
+  endereco     String?
+  created_at   DateTime    @default(now())
+  updated_at   DateTime    @default(now())
+  orcamentos   Orcamento[]
+}
+
+model Orcamento {
+  id            Int             @id @default(autoincrement())
+  nome          String
+  cliente_id    Int
+  usuario_id    Int
+  preco_total   Decimal
+  data_inicial  DateTime        @default(now())
+  data_validade DateTime
+  status        StatusOrcamento @default(Pendente)
+  pdf_path      String?
+  created_at    DateTime        @default(now())
+  updated_at    DateTime        @default(now())
+  cliente       Cliente         @relation(fields: [cliente_id], references: [id])
+  usuario       Usuario         @relation(fields: [usuario_id], references: [id])
+  itens         OrcamentoItem[]
+}
+
+model Item {
+  id             Int             @id @default(autoincrement())
+  nome           String
+  marca          String?
+  preco_unitario Decimal
+  unidade_medida String
+  descricao      String?
+  created_at     DateTime        @default(now())
+  updated_at     DateTime        @default(now())
+  orcamentos     OrcamentoItem[]
+}
+
+model OrcamentoItem {
+  id             Int     @id @default(autoincrement())
+  orcamento_id   Int
+  item_id        Int
+  quantidade     Decimal
+  preco_unitario Decimal
+
+  orcamento Orcamento @relation(fields: [orcamento_id], references: [id])
+  item      Item      @relation(fields: [item_id], references: [id])
+}
