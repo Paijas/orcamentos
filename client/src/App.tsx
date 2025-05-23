@@ -4,6 +4,7 @@ import PWABadge from "./PWABadge";
 import Login from "./pages/login";
 import Cadastro from "./pages/cadastro";
 import Home from "./pages/home";
+import PrivateRoute from "./components/privateRouter";
 
 function App() {
   return (
@@ -16,7 +17,14 @@ function App() {
           <Route path="/cadastro" element={<Cadastro />} />
         </Routes>
         <Routes>
-          <Route path="/home" element={<Home />} />
+          <Route
+            path="/home"
+            element={
+              <PrivateRoute>
+                <Home />
+              </PrivateRoute>
+            }
+          />
         </Routes>
 
         <PWABadge />

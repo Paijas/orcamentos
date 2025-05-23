@@ -41,10 +41,21 @@ const loginUser = async (req, res) => {
     res.status(401).json({ message: error.message });
   }
 };
+const updateUsuario = async (req, res) => {
+  const { id } = req.params;
+  const data = req.body;
+  try {
+    const usuario = await userService.updateUsuario(id, data);
+    res.json(usuario);
+  } catch (error) {
+    res.status(500).json({ error: "Erro ao atualizar usuário." });
+  }
+};
 
 module.exports = {
   getAllUsers,
   createUser,
   getUserById,
   loginUser,
+  updateUsuario,
 };

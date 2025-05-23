@@ -70,9 +70,19 @@ const loginUser = async (email, senha) => {
   return { token, user: { id: user.id, email: user.email, nome: user.nome } };
 };
 
+const updateUsuario = async (id, data) => {
+  return prisma.usuario.update({
+    where: { id: parseInt(id) },
+    data,
+  });
+};
+
+module.exports = { updateUsuario };
+
 module.exports = {
   createUser,
   getAllUsers,
   getUserById,
   loginUser,
+  updateUsuario,
 };

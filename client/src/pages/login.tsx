@@ -1,19 +1,32 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import AxiosInstance from "@/services/AxiosInstance";
 export default function login() {
+  const navigate = useNavigate();
+
   const [user, setUser] = useState(String);
   const [password, setPassword] = useState(String);
 
-  const handleSubmit = () => {
-    if (user.trim() !== "" && password.trim() !== "") {
-      navigate("/home");
-    } else {
-      alert("Preencha todos os campos corretamente");
+  const handleSubmit = async (username: string, password: string) => {
+    try {
+      if (username.trim() !== "" && password.trim() !== "") {
+        const response = await AxiosInstance.post("/api/login", {
+          email: username,
+          senha: password,
+        });
+
+        const { token, user } = response.data;
+
+        if (token) {
+          localStorage.setItem("token", token);
+          localStorage.setItem("user", JSON.stringify(user));
+          navigate("/home");
+        }
+      }
+    } catch (error) {
+      console.error("Erro ao fazer login:", error);
     }
   };
-
-  const navigate = useNavigate();
 
   return (
     <div className="flex flex-col bg-blue-950 justify-center items-center min-h-screen">
@@ -21,7 +34,7 @@ export default function login() {
         <form
           className="w-full flex flex-col"
           onSubmit={(e) => {
-            [e.preventDefault(), handleSubmit()];
+            [e.preventDefault(), handleSubmit(user, password)];
           }}
         >
           <div className="w-full mb-4">
