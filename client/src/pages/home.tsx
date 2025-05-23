@@ -2,8 +2,11 @@ import React from "react";
 import Option from "../components/option";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
+import { useAuth } from "@/services/AuthContext";
 
 export default function home() {
+  const data = useAuth();
+
   return (
     <SidebarProvider>
       <AppSidebar />
@@ -24,7 +27,7 @@ export default function home() {
                 <div className="flex flex-col justify-center  w-full">
                   <h1 className="font-bold text-blue-950 text-xl">Bem-vindo</h1>
                   <h2 className="text-slate-600 font-medium text-sm">
-                    Jonson de Oliveira
+                    {data.user?.nome}
                   </h2>
                 </div>
                 {/* OPÇÕES */}

@@ -13,8 +13,9 @@ import {
 } from "@/components/ui/sidebar";
 
 import { NavUser } from "./nav-user";
-import { userInfo } from "os";
+
 // Menu items.
+
 const items = [
   {
     title: "Home",

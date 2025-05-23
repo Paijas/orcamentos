@@ -19,7 +19,7 @@ export default function login() {
 
         if (token) {
           localStorage.setItem("token", token);
-
+          localStorage.setItem("user", JSON.stringify(user));
           navigate("/home");
         }
       }
