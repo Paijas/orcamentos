@@ -128,6 +128,8 @@ exports.Prisma.UsuarioScalarFieldEnum = {
   senha: 'senha',
   tipo_usuario: 'tipo_usuario',
   documento: 'documento',
+  cep: 'cep',
+  nome_empresa: 'nome_empresa',
   created_at: 'created_at',
   updated_at: 'updated_at'
 };
@@ -140,6 +142,7 @@ exports.Prisma.ClienteScalarFieldEnum = {
   tipo_cliente: 'tipo_cliente',
   documento: 'documento',
   endereco: 'endereco',
+  cep: 'cep',
   created_at: 'created_at',
   updated_at: 'updated_at'
 };
@@ -154,6 +157,8 @@ exports.Prisma.OrcamentoScalarFieldEnum = {
   data_validade: 'data_validade',
   status: 'status',
   pdf_path: 'pdf_path',
+  meios_pagamento: 'meios_pagamento',
+  periodo_garantia: 'periodo_garantia',
   created_at: 'created_at',
   updated_at: 'updated_at'
 };
@@ -164,7 +169,6 @@ exports.Prisma.ItemScalarFieldEnum = {
   marca: 'marca',
   preco_unitario: 'preco_unitario',
   unidade_medida: 'unidade_medida',
-  descricao: 'descricao',
   created_at: 'created_at',
   updated_at: 'updated_at'
 };
@@ -174,7 +178,17 @@ exports.Prisma.OrcamentoItemScalarFieldEnum = {
   orcamento_id: 'orcamento_id',
   item_id: 'item_id',
   quantidade: 'quantidade',
-  preco_unitario: 'preco_unitario'
+  preco_unitario: 'preco_unitario',
+  nome: 'nome',
+  marca: 'marca',
+  unidade_medida: 'unidade_medida'
+};
+
+exports.Prisma.ServicoScalarFieldEnum = {
+  id: 'id',
+  orcamento_id: 'orcamento_id',
+  titulo: 'titulo',
+  preco: 'preco'
 };
 
 exports.Prisma.SortOrder = {
@@ -212,7 +226,8 @@ exports.Prisma.ModelName = {
   Cliente: 'Cliente',
   Orcamento: 'Orcamento',
   Item: 'Item',
-  OrcamentoItem: 'OrcamentoItem'
+  OrcamentoItem: 'OrcamentoItem',
+  Servico: 'Servico'
 };
 
 /**

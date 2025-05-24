@@ -38,6 +38,11 @@ export type Item = $Result.DefaultSelection<Prisma.$ItemPayload>
  * 
  */
 export type OrcamentoItem = $Result.DefaultSelection<Prisma.$OrcamentoItemPayload>
+/**
+ * Model Servico
+ * 
+ */
+export type Servico = $Result.DefaultSelection<Prisma.$ServicoPayload>
 
 /**
  * Enums
@@ -255,6 +260,16 @@ export class PrismaClient<
     * ```
     */
   get orcamentoItem(): Prisma.OrcamentoItemDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.servico`: Exposes CRUD operations for the **Servico** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Servicos
+    * const servicos = await prisma.servico.findMany()
+    * ```
+    */
+  get servico(): Prisma.ServicoDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -699,7 +714,8 @@ export namespace Prisma {
     Cliente: 'Cliente',
     Orcamento: 'Orcamento',
     Item: 'Item',
-    OrcamentoItem: 'OrcamentoItem'
+    OrcamentoItem: 'OrcamentoItem',
+    Servico: 'Servico'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -718,7 +734,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "usuario" | "cliente" | "orcamento" | "item" | "orcamentoItem"
+      modelProps: "usuario" | "cliente" | "orcamento" | "item" | "orcamentoItem" | "servico"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1092,6 +1108,80 @@ export namespace Prisma {
           }
         }
       }
+      Servico: {
+        payload: Prisma.$ServicoPayload<ExtArgs>
+        fields: Prisma.ServicoFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ServicoFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ServicoPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ServicoFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ServicoPayload>
+          }
+          findFirst: {
+            args: Prisma.ServicoFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ServicoPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ServicoFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ServicoPayload>
+          }
+          findMany: {
+            args: Prisma.ServicoFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ServicoPayload>[]
+          }
+          create: {
+            args: Prisma.ServicoCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ServicoPayload>
+          }
+          createMany: {
+            args: Prisma.ServicoCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ServicoCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ServicoPayload>[]
+          }
+          delete: {
+            args: Prisma.ServicoDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ServicoPayload>
+          }
+          update: {
+            args: Prisma.ServicoUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ServicoPayload>
+          }
+          deleteMany: {
+            args: Prisma.ServicoDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ServicoUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ServicoUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ServicoPayload>[]
+          }
+          upsert: {
+            args: Prisma.ServicoUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ServicoPayload>
+          }
+          aggregate: {
+            args: Prisma.ServicoAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateServico>
+          }
+          groupBy: {
+            args: Prisma.ServicoGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ServicoGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ServicoCountArgs<ExtArgs>
+            result: $Utils.Optional<ServicoCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1181,6 +1271,7 @@ export namespace Prisma {
     orcamento?: OrcamentoOmit
     item?: ItemOmit
     orcamentoItem?: OrcamentoItemOmit
+    servico?: ServicoOmit
   }
 
   /* Types for Logging */
@@ -1338,10 +1429,12 @@ export namespace Prisma {
 
   export type OrcamentoCountOutputType = {
     itens: number
+    servicos: number
   }
 
   export type OrcamentoCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     itens?: boolean | OrcamentoCountOutputTypeCountItensArgs
+    servicos?: boolean | OrcamentoCountOutputTypeCountServicosArgs
   }
 
   // Custom InputTypes
@@ -1360,6 +1453,13 @@ export namespace Prisma {
    */
   export type OrcamentoCountOutputTypeCountItensArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: OrcamentoItemWhereInput
+  }
+
+  /**
+   * OrcamentoCountOutputType without action
+   */
+  export type OrcamentoCountOutputTypeCountServicosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ServicoWhereInput
   }
 
 
@@ -1426,6 +1526,8 @@ export namespace Prisma {
     senha: string | null
     tipo_usuario: $Enums.TipoUsuario | null
     documento: string | null
+    cep: string | null
+    nome_empresa: string | null
     created_at: Date | null
     updated_at: Date | null
   }
@@ -1438,6 +1540,8 @@ export namespace Prisma {
     senha: string | null
     tipo_usuario: $Enums.TipoUsuario | null
     documento: string | null
+    cep: string | null
+    nome_empresa: string | null
     created_at: Date | null
     updated_at: Date | null
   }
@@ -1450,6 +1554,8 @@ export namespace Prisma {
     senha: number
     tipo_usuario: number
     documento: number
+    cep: number
+    nome_empresa: number
     created_at: number
     updated_at: number
     _all: number
@@ -1472,6 +1578,8 @@ export namespace Prisma {
     senha?: true
     tipo_usuario?: true
     documento?: true
+    cep?: true
+    nome_empresa?: true
     created_at?: true
     updated_at?: true
   }
@@ -1484,6 +1592,8 @@ export namespace Prisma {
     senha?: true
     tipo_usuario?: true
     documento?: true
+    cep?: true
+    nome_empresa?: true
     created_at?: true
     updated_at?: true
   }
@@ -1496,6 +1606,8 @@ export namespace Prisma {
     senha?: true
     tipo_usuario?: true
     documento?: true
+    cep?: true
+    nome_empresa?: true
     created_at?: true
     updated_at?: true
     _all?: true
@@ -1595,6 +1707,8 @@ export namespace Prisma {
     senha: string
     tipo_usuario: $Enums.TipoUsuario
     documento: string
+    cep: string | null
+    nome_empresa: string | null
     created_at: Date
     updated_at: Date
     _count: UsuarioCountAggregateOutputType | null
@@ -1626,6 +1740,8 @@ export namespace Prisma {
     senha?: boolean
     tipo_usuario?: boolean
     documento?: boolean
+    cep?: boolean
+    nome_empresa?: boolean
     created_at?: boolean
     updated_at?: boolean
     orcamentos?: boolean | Usuario$orcamentosArgs<ExtArgs>
@@ -1640,6 +1756,8 @@ export namespace Prisma {
     senha?: boolean
     tipo_usuario?: boolean
     documento?: boolean
+    cep?: boolean
+    nome_empresa?: boolean
     created_at?: boolean
     updated_at?: boolean
   }, ExtArgs["result"]["usuario"]>
@@ -1652,6 +1770,8 @@ export namespace Prisma {
     senha?: boolean
     tipo_usuario?: boolean
     documento?: boolean
+    cep?: boolean
+    nome_empresa?: boolean
     created_at?: boolean
     updated_at?: boolean
   }, ExtArgs["result"]["usuario"]>
@@ -1664,11 +1784,13 @@ export namespace Prisma {
     senha?: boolean
     tipo_usuario?: boolean
     documento?: boolean
+    cep?: boolean
+    nome_empresa?: boolean
     created_at?: boolean
     updated_at?: boolean
   }
 
-  export type UsuarioOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nome" | "email" | "celular" | "senha" | "tipo_usuario" | "documento" | "created_at" | "updated_at", ExtArgs["result"]["usuario"]>
+  export type UsuarioOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nome" | "email" | "celular" | "senha" | "tipo_usuario" | "documento" | "cep" | "nome_empresa" | "created_at" | "updated_at", ExtArgs["result"]["usuario"]>
   export type UsuarioInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     orcamentos?: boolean | Usuario$orcamentosArgs<ExtArgs>
     _count?: boolean | UsuarioCountOutputTypeDefaultArgs<ExtArgs>
@@ -1689,6 +1811,8 @@ export namespace Prisma {
       senha: string
       tipo_usuario: $Enums.TipoUsuario
       documento: string
+      cep: string | null
+      nome_empresa: string | null
       created_at: Date
       updated_at: Date
     }, ExtArgs["result"]["usuario"]>
@@ -2122,6 +2246,8 @@ export namespace Prisma {
     readonly senha: FieldRef<"Usuario", 'String'>
     readonly tipo_usuario: FieldRef<"Usuario", 'TipoUsuario'>
     readonly documento: FieldRef<"Usuario", 'String'>
+    readonly cep: FieldRef<"Usuario", 'String'>
+    readonly nome_empresa: FieldRef<"Usuario", 'String'>
     readonly created_at: FieldRef<"Usuario", 'DateTime'>
     readonly updated_at: FieldRef<"Usuario", 'DateTime'>
   }
@@ -2582,6 +2708,7 @@ export namespace Prisma {
     tipo_cliente: $Enums.TipoCliente | null
     documento: string | null
     endereco: string | null
+    cep: string | null
     created_at: Date | null
     updated_at: Date | null
   }
@@ -2594,6 +2721,7 @@ export namespace Prisma {
     tipo_cliente: $Enums.TipoCliente | null
     documento: string | null
     endereco: string | null
+    cep: string | null
     created_at: Date | null
     updated_at: Date | null
   }
@@ -2606,6 +2734,7 @@ export namespace Prisma {
     tipo_cliente: number
     documento: number
     endereco: number
+    cep: number
     created_at: number
     updated_at: number
     _all: number
@@ -2628,6 +2757,7 @@ export namespace Prisma {
     tipo_cliente?: true
     documento?: true
     endereco?: true
+    cep?: true
     created_at?: true
     updated_at?: true
   }
@@ -2640,6 +2770,7 @@ export namespace Prisma {
     tipo_cliente?: true
     documento?: true
     endereco?: true
+    cep?: true
     created_at?: true
     updated_at?: true
   }
@@ -2652,6 +2783,7 @@ export namespace Prisma {
     tipo_cliente?: true
     documento?: true
     endereco?: true
+    cep?: true
     created_at?: true
     updated_at?: true
     _all?: true
@@ -2751,6 +2883,7 @@ export namespace Prisma {
     tipo_cliente: $Enums.TipoCliente
     documento: string
     endereco: string | null
+    cep: string | null
     created_at: Date
     updated_at: Date
     _count: ClienteCountAggregateOutputType | null
@@ -2782,6 +2915,7 @@ export namespace Prisma {
     tipo_cliente?: boolean
     documento?: boolean
     endereco?: boolean
+    cep?: boolean
     created_at?: boolean
     updated_at?: boolean
     orcamentos?: boolean | Cliente$orcamentosArgs<ExtArgs>
@@ -2796,6 +2930,7 @@ export namespace Prisma {
     tipo_cliente?: boolean
     documento?: boolean
     endereco?: boolean
+    cep?: boolean
     created_at?: boolean
     updated_at?: boolean
   }, ExtArgs["result"]["cliente"]>
@@ -2808,6 +2943,7 @@ export namespace Prisma {
     tipo_cliente?: boolean
     documento?: boolean
     endereco?: boolean
+    cep?: boolean
     created_at?: boolean
     updated_at?: boolean
   }, ExtArgs["result"]["cliente"]>
@@ -2820,11 +2956,12 @@ export namespace Prisma {
     tipo_cliente?: boolean
     documento?: boolean
     endereco?: boolean
+    cep?: boolean
     created_at?: boolean
     updated_at?: boolean
   }
 
-  export type ClienteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nome" | "email" | "celular" | "tipo_cliente" | "documento" | "endereco" | "created_at" | "updated_at", ExtArgs["result"]["cliente"]>
+  export type ClienteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nome" | "email" | "celular" | "tipo_cliente" | "documento" | "endereco" | "cep" | "created_at" | "updated_at", ExtArgs["result"]["cliente"]>
   export type ClienteInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     orcamentos?: boolean | Cliente$orcamentosArgs<ExtArgs>
     _count?: boolean | ClienteCountOutputTypeDefaultArgs<ExtArgs>
@@ -2845,6 +2982,7 @@ export namespace Prisma {
       tipo_cliente: $Enums.TipoCliente
       documento: string
       endereco: string | null
+      cep: string | null
       created_at: Date
       updated_at: Date
     }, ExtArgs["result"]["cliente"]>
@@ -3278,6 +3416,7 @@ export namespace Prisma {
     readonly tipo_cliente: FieldRef<"Cliente", 'TipoCliente'>
     readonly documento: FieldRef<"Cliente", 'String'>
     readonly endereco: FieldRef<"Cliente", 'String'>
+    readonly cep: FieldRef<"Cliente", 'String'>
     readonly created_at: FieldRef<"Cliente", 'DateTime'>
     readonly updated_at: FieldRef<"Cliente", 'DateTime'>
   }
@@ -3746,6 +3885,8 @@ export namespace Prisma {
     data_validade: Date | null
     status: $Enums.StatusOrcamento | null
     pdf_path: string | null
+    meios_pagamento: string | null
+    periodo_garantia: string | null
     created_at: Date | null
     updated_at: Date | null
   }
@@ -3760,6 +3901,8 @@ export namespace Prisma {
     data_validade: Date | null
     status: $Enums.StatusOrcamento | null
     pdf_path: string | null
+    meios_pagamento: string | null
+    periodo_garantia: string | null
     created_at: Date | null
     updated_at: Date | null
   }
@@ -3774,6 +3917,8 @@ export namespace Prisma {
     data_validade: number
     status: number
     pdf_path: number
+    meios_pagamento: number
+    periodo_garantia: number
     created_at: number
     updated_at: number
     _all: number
@@ -3804,6 +3949,8 @@ export namespace Prisma {
     data_validade?: true
     status?: true
     pdf_path?: true
+    meios_pagamento?: true
+    periodo_garantia?: true
     created_at?: true
     updated_at?: true
   }
@@ -3818,6 +3965,8 @@ export namespace Prisma {
     data_validade?: true
     status?: true
     pdf_path?: true
+    meios_pagamento?: true
+    periodo_garantia?: true
     created_at?: true
     updated_at?: true
   }
@@ -3832,6 +3981,8 @@ export namespace Prisma {
     data_validade?: true
     status?: true
     pdf_path?: true
+    meios_pagamento?: true
+    periodo_garantia?: true
     created_at?: true
     updated_at?: true
     _all?: true
@@ -3933,6 +4084,8 @@ export namespace Prisma {
     data_validade: Date
     status: $Enums.StatusOrcamento
     pdf_path: string | null
+    meios_pagamento: string | null
+    periodo_garantia: string | null
     created_at: Date
     updated_at: Date
     _count: OrcamentoCountAggregateOutputType | null
@@ -3966,11 +4119,14 @@ export namespace Prisma {
     data_validade?: boolean
     status?: boolean
     pdf_path?: boolean
+    meios_pagamento?: boolean
+    periodo_garantia?: boolean
     created_at?: boolean
     updated_at?: boolean
     cliente?: boolean | ClienteDefaultArgs<ExtArgs>
     usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
     itens?: boolean | Orcamento$itensArgs<ExtArgs>
+    servicos?: boolean | Orcamento$servicosArgs<ExtArgs>
     _count?: boolean | OrcamentoCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["orcamento"]>
 
@@ -3984,6 +4140,8 @@ export namespace Prisma {
     data_validade?: boolean
     status?: boolean
     pdf_path?: boolean
+    meios_pagamento?: boolean
+    periodo_garantia?: boolean
     created_at?: boolean
     updated_at?: boolean
     cliente?: boolean | ClienteDefaultArgs<ExtArgs>
@@ -4000,6 +4158,8 @@ export namespace Prisma {
     data_validade?: boolean
     status?: boolean
     pdf_path?: boolean
+    meios_pagamento?: boolean
+    periodo_garantia?: boolean
     created_at?: boolean
     updated_at?: boolean
     cliente?: boolean | ClienteDefaultArgs<ExtArgs>
@@ -4016,15 +4176,18 @@ export namespace Prisma {
     data_validade?: boolean
     status?: boolean
     pdf_path?: boolean
+    meios_pagamento?: boolean
+    periodo_garantia?: boolean
     created_at?: boolean
     updated_at?: boolean
   }
 
-  export type OrcamentoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nome" | "cliente_id" | "usuario_id" | "preco_total" | "data_inicial" | "data_validade" | "status" | "pdf_path" | "created_at" | "updated_at", ExtArgs["result"]["orcamento"]>
+  export type OrcamentoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nome" | "cliente_id" | "usuario_id" | "preco_total" | "data_inicial" | "data_validade" | "status" | "pdf_path" | "meios_pagamento" | "periodo_garantia" | "created_at" | "updated_at", ExtArgs["result"]["orcamento"]>
   export type OrcamentoInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     cliente?: boolean | ClienteDefaultArgs<ExtArgs>
     usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
     itens?: boolean | Orcamento$itensArgs<ExtArgs>
+    servicos?: boolean | Orcamento$servicosArgs<ExtArgs>
     _count?: boolean | OrcamentoCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type OrcamentoIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4042,6 +4205,7 @@ export namespace Prisma {
       cliente: Prisma.$ClientePayload<ExtArgs>
       usuario: Prisma.$UsuarioPayload<ExtArgs>
       itens: Prisma.$OrcamentoItemPayload<ExtArgs>[]
+      servicos: Prisma.$ServicoPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -4053,6 +4217,8 @@ export namespace Prisma {
       data_validade: Date
       status: $Enums.StatusOrcamento
       pdf_path: string | null
+      meios_pagamento: string | null
+      periodo_garantia: string | null
       created_at: Date
       updated_at: Date
     }, ExtArgs["result"]["orcamento"]>
@@ -4452,6 +4618,7 @@ export namespace Prisma {
     cliente<T extends ClienteDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ClienteDefaultArgs<ExtArgs>>): Prisma__ClienteClient<$Result.GetResult<Prisma.$ClientePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     usuario<T extends UsuarioDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UsuarioDefaultArgs<ExtArgs>>): Prisma__UsuarioClient<$Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     itens<T extends Orcamento$itensArgs<ExtArgs> = {}>(args?: Subset<T, Orcamento$itensArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrcamentoItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    servicos<T extends Orcamento$servicosArgs<ExtArgs> = {}>(args?: Subset<T, Orcamento$servicosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ServicoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4490,6 +4657,8 @@ export namespace Prisma {
     readonly data_validade: FieldRef<"Orcamento", 'DateTime'>
     readonly status: FieldRef<"Orcamento", 'StatusOrcamento'>
     readonly pdf_path: FieldRef<"Orcamento", 'String'>
+    readonly meios_pagamento: FieldRef<"Orcamento", 'String'>
+    readonly periodo_garantia: FieldRef<"Orcamento", 'String'>
     readonly created_at: FieldRef<"Orcamento", 'DateTime'>
     readonly updated_at: FieldRef<"Orcamento", 'DateTime'>
   }
@@ -4912,6 +5081,30 @@ export namespace Prisma {
   }
 
   /**
+   * Orcamento.servicos
+   */
+  export type Orcamento$servicosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Servico
+     */
+    select?: ServicoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Servico
+     */
+    omit?: ServicoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServicoInclude<ExtArgs> | null
+    where?: ServicoWhereInput
+    orderBy?: ServicoOrderByWithRelationInput | ServicoOrderByWithRelationInput[]
+    cursor?: ServicoWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ServicoScalarFieldEnum | ServicoScalarFieldEnum[]
+  }
+
+  /**
    * Orcamento without action
    */
   export type OrcamentoDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4958,7 +5151,6 @@ export namespace Prisma {
     marca: string | null
     preco_unitario: Decimal | null
     unidade_medida: string | null
-    descricao: string | null
     created_at: Date | null
     updated_at: Date | null
   }
@@ -4969,7 +5161,6 @@ export namespace Prisma {
     marca: string | null
     preco_unitario: Decimal | null
     unidade_medida: string | null
-    descricao: string | null
     created_at: Date | null
     updated_at: Date | null
   }
@@ -4980,7 +5171,6 @@ export namespace Prisma {
     marca: number
     preco_unitario: number
     unidade_medida: number
-    descricao: number
     created_at: number
     updated_at: number
     _all: number
@@ -5003,7 +5193,6 @@ export namespace Prisma {
     marca?: true
     preco_unitario?: true
     unidade_medida?: true
-    descricao?: true
     created_at?: true
     updated_at?: true
   }
@@ -5014,7 +5203,6 @@ export namespace Prisma {
     marca?: true
     preco_unitario?: true
     unidade_medida?: true
-    descricao?: true
     created_at?: true
     updated_at?: true
   }
@@ -5025,7 +5213,6 @@ export namespace Prisma {
     marca?: true
     preco_unitario?: true
     unidade_medida?: true
-    descricao?: true
     created_at?: true
     updated_at?: true
     _all?: true
@@ -5123,7 +5310,6 @@ export namespace Prisma {
     marca: string | null
     preco_unitario: Decimal
     unidade_medida: string
-    descricao: string | null
     created_at: Date
     updated_at: Date
     _count: ItemCountAggregateOutputType | null
@@ -5153,7 +5339,6 @@ export namespace Prisma {
     marca?: boolean
     preco_unitario?: boolean
     unidade_medida?: boolean
-    descricao?: boolean
     created_at?: boolean
     updated_at?: boolean
     orcamentos?: boolean | Item$orcamentosArgs<ExtArgs>
@@ -5166,7 +5351,6 @@ export namespace Prisma {
     marca?: boolean
     preco_unitario?: boolean
     unidade_medida?: boolean
-    descricao?: boolean
     created_at?: boolean
     updated_at?: boolean
   }, ExtArgs["result"]["item"]>
@@ -5177,7 +5361,6 @@ export namespace Prisma {
     marca?: boolean
     preco_unitario?: boolean
     unidade_medida?: boolean
-    descricao?: boolean
     created_at?: boolean
     updated_at?: boolean
   }, ExtArgs["result"]["item"]>
@@ -5188,12 +5371,11 @@ export namespace Prisma {
     marca?: boolean
     preco_unitario?: boolean
     unidade_medida?: boolean
-    descricao?: boolean
     created_at?: boolean
     updated_at?: boolean
   }
 
-  export type ItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nome" | "marca" | "preco_unitario" | "unidade_medida" | "descricao" | "created_at" | "updated_at", ExtArgs["result"]["item"]>
+  export type ItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nome" | "marca" | "preco_unitario" | "unidade_medida" | "created_at" | "updated_at", ExtArgs["result"]["item"]>
   export type ItemInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     orcamentos?: boolean | Item$orcamentosArgs<ExtArgs>
     _count?: boolean | ItemCountOutputTypeDefaultArgs<ExtArgs>
@@ -5212,7 +5394,6 @@ export namespace Prisma {
       marca: string | null
       preco_unitario: Prisma.Decimal
       unidade_medida: string
-      descricao: string | null
       created_at: Date
       updated_at: Date
     }, ExtArgs["result"]["item"]>
@@ -5644,7 +5825,6 @@ export namespace Prisma {
     readonly marca: FieldRef<"Item", 'String'>
     readonly preco_unitario: FieldRef<"Item", 'Decimal'>
     readonly unidade_medida: FieldRef<"Item", 'String'>
-    readonly descricao: FieldRef<"Item", 'String'>
     readonly created_at: FieldRef<"Item", 'DateTime'>
     readonly updated_at: FieldRef<"Item", 'DateTime'>
   }
@@ -6111,6 +6291,9 @@ export namespace Prisma {
     item_id: number | null
     quantidade: Decimal | null
     preco_unitario: Decimal | null
+    nome: string | null
+    marca: string | null
+    unidade_medida: string | null
   }
 
   export type OrcamentoItemMaxAggregateOutputType = {
@@ -6119,6 +6302,9 @@ export namespace Prisma {
     item_id: number | null
     quantidade: Decimal | null
     preco_unitario: Decimal | null
+    nome: string | null
+    marca: string | null
+    unidade_medida: string | null
   }
 
   export type OrcamentoItemCountAggregateOutputType = {
@@ -6127,6 +6313,9 @@ export namespace Prisma {
     item_id: number
     quantidade: number
     preco_unitario: number
+    nome: number
+    marca: number
+    unidade_medida: number
     _all: number
   }
 
@@ -6153,6 +6342,9 @@ export namespace Prisma {
     item_id?: true
     quantidade?: true
     preco_unitario?: true
+    nome?: true
+    marca?: true
+    unidade_medida?: true
   }
 
   export type OrcamentoItemMaxAggregateInputType = {
@@ -6161,6 +6353,9 @@ export namespace Prisma {
     item_id?: true
     quantidade?: true
     preco_unitario?: true
+    nome?: true
+    marca?: true
+    unidade_medida?: true
   }
 
   export type OrcamentoItemCountAggregateInputType = {
@@ -6169,6 +6364,9 @@ export namespace Prisma {
     item_id?: true
     quantidade?: true
     preco_unitario?: true
+    nome?: true
+    marca?: true
+    unidade_medida?: true
     _all?: true
   }
 
@@ -6261,9 +6459,12 @@ export namespace Prisma {
   export type OrcamentoItemGroupByOutputType = {
     id: number
     orcamento_id: number
-    item_id: number
+    item_id: number | null
     quantidade: Decimal
     preco_unitario: Decimal
+    nome: string | null
+    marca: string | null
+    unidade_medida: string | null
     _count: OrcamentoItemCountAggregateOutputType | null
     _avg: OrcamentoItemAvgAggregateOutputType | null
     _sum: OrcamentoItemSumAggregateOutputType | null
@@ -6291,8 +6492,11 @@ export namespace Prisma {
     item_id?: boolean
     quantidade?: boolean
     preco_unitario?: boolean
+    nome?: boolean
+    marca?: boolean
+    unidade_medida?: boolean
     orcamento?: boolean | OrcamentoDefaultArgs<ExtArgs>
-    item?: boolean | ItemDefaultArgs<ExtArgs>
+    item?: boolean | OrcamentoItem$itemArgs<ExtArgs>
   }, ExtArgs["result"]["orcamentoItem"]>
 
   export type OrcamentoItemSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -6301,8 +6505,11 @@ export namespace Prisma {
     item_id?: boolean
     quantidade?: boolean
     preco_unitario?: boolean
+    nome?: boolean
+    marca?: boolean
+    unidade_medida?: boolean
     orcamento?: boolean | OrcamentoDefaultArgs<ExtArgs>
-    item?: boolean | ItemDefaultArgs<ExtArgs>
+    item?: boolean | OrcamentoItem$itemArgs<ExtArgs>
   }, ExtArgs["result"]["orcamentoItem"]>
 
   export type OrcamentoItemSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -6311,8 +6518,11 @@ export namespace Prisma {
     item_id?: boolean
     quantidade?: boolean
     preco_unitario?: boolean
+    nome?: boolean
+    marca?: boolean
+    unidade_medida?: boolean
     orcamento?: boolean | OrcamentoDefaultArgs<ExtArgs>
-    item?: boolean | ItemDefaultArgs<ExtArgs>
+    item?: boolean | OrcamentoItem$itemArgs<ExtArgs>
   }, ExtArgs["result"]["orcamentoItem"]>
 
   export type OrcamentoItemSelectScalar = {
@@ -6321,34 +6531,40 @@ export namespace Prisma {
     item_id?: boolean
     quantidade?: boolean
     preco_unitario?: boolean
+    nome?: boolean
+    marca?: boolean
+    unidade_medida?: boolean
   }
 
-  export type OrcamentoItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "orcamento_id" | "item_id" | "quantidade" | "preco_unitario", ExtArgs["result"]["orcamentoItem"]>
+  export type OrcamentoItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "orcamento_id" | "item_id" | "quantidade" | "preco_unitario" | "nome" | "marca" | "unidade_medida", ExtArgs["result"]["orcamentoItem"]>
   export type OrcamentoItemInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     orcamento?: boolean | OrcamentoDefaultArgs<ExtArgs>
-    item?: boolean | ItemDefaultArgs<ExtArgs>
+    item?: boolean | OrcamentoItem$itemArgs<ExtArgs>
   }
   export type OrcamentoItemIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     orcamento?: boolean | OrcamentoDefaultArgs<ExtArgs>
-    item?: boolean | ItemDefaultArgs<ExtArgs>
+    item?: boolean | OrcamentoItem$itemArgs<ExtArgs>
   }
   export type OrcamentoItemIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     orcamento?: boolean | OrcamentoDefaultArgs<ExtArgs>
-    item?: boolean | ItemDefaultArgs<ExtArgs>
+    item?: boolean | OrcamentoItem$itemArgs<ExtArgs>
   }
 
   export type $OrcamentoItemPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "OrcamentoItem"
     objects: {
       orcamento: Prisma.$OrcamentoPayload<ExtArgs>
-      item: Prisma.$ItemPayload<ExtArgs>
+      item: Prisma.$ItemPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       orcamento_id: number
-      item_id: number
+      item_id: number | null
       quantidade: Prisma.Decimal
       preco_unitario: Prisma.Decimal
+      nome: string | null
+      marca: string | null
+      unidade_medida: string | null
     }, ExtArgs["result"]["orcamentoItem"]>
     composites: {}
   }
@@ -6744,7 +6960,7 @@ export namespace Prisma {
   export interface Prisma__OrcamentoItemClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     orcamento<T extends OrcamentoDefaultArgs<ExtArgs> = {}>(args?: Subset<T, OrcamentoDefaultArgs<ExtArgs>>): Prisma__OrcamentoClient<$Result.GetResult<Prisma.$OrcamentoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    item<T extends ItemDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ItemDefaultArgs<ExtArgs>>): Prisma__ItemClient<$Result.GetResult<Prisma.$ItemPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    item<T extends OrcamentoItem$itemArgs<ExtArgs> = {}>(args?: Subset<T, OrcamentoItem$itemArgs<ExtArgs>>): Prisma__ItemClient<$Result.GetResult<Prisma.$ItemPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6779,6 +6995,9 @@ export namespace Prisma {
     readonly item_id: FieldRef<"OrcamentoItem", 'Int'>
     readonly quantidade: FieldRef<"OrcamentoItem", 'Decimal'>
     readonly preco_unitario: FieldRef<"OrcamentoItem", 'Decimal'>
+    readonly nome: FieldRef<"OrcamentoItem", 'String'>
+    readonly marca: FieldRef<"OrcamentoItem", 'String'>
+    readonly unidade_medida: FieldRef<"OrcamentoItem", 'String'>
   }
     
 
@@ -7175,6 +7394,25 @@ export namespace Prisma {
   }
 
   /**
+   * OrcamentoItem.item
+   */
+  export type OrcamentoItem$itemArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Item
+     */
+    select?: ItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Item
+     */
+    omit?: ItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ItemInclude<ExtArgs> | null
+    where?: ItemWhereInput
+  }
+
+  /**
    * OrcamentoItem without action
    */
   export type OrcamentoItemDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7190,6 +7428,1093 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: OrcamentoItemInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Servico
+   */
+
+  export type AggregateServico = {
+    _count: ServicoCountAggregateOutputType | null
+    _avg: ServicoAvgAggregateOutputType | null
+    _sum: ServicoSumAggregateOutputType | null
+    _min: ServicoMinAggregateOutputType | null
+    _max: ServicoMaxAggregateOutputType | null
+  }
+
+  export type ServicoAvgAggregateOutputType = {
+    id: number | null
+    orcamento_id: number | null
+    preco: Decimal | null
+  }
+
+  export type ServicoSumAggregateOutputType = {
+    id: number | null
+    orcamento_id: number | null
+    preco: Decimal | null
+  }
+
+  export type ServicoMinAggregateOutputType = {
+    id: number | null
+    orcamento_id: number | null
+    titulo: string | null
+    preco: Decimal | null
+  }
+
+  export type ServicoMaxAggregateOutputType = {
+    id: number | null
+    orcamento_id: number | null
+    titulo: string | null
+    preco: Decimal | null
+  }
+
+  export type ServicoCountAggregateOutputType = {
+    id: number
+    orcamento_id: number
+    titulo: number
+    preco: number
+    _all: number
+  }
+
+
+  export type ServicoAvgAggregateInputType = {
+    id?: true
+    orcamento_id?: true
+    preco?: true
+  }
+
+  export type ServicoSumAggregateInputType = {
+    id?: true
+    orcamento_id?: true
+    preco?: true
+  }
+
+  export type ServicoMinAggregateInputType = {
+    id?: true
+    orcamento_id?: true
+    titulo?: true
+    preco?: true
+  }
+
+  export type ServicoMaxAggregateInputType = {
+    id?: true
+    orcamento_id?: true
+    titulo?: true
+    preco?: true
+  }
+
+  export type ServicoCountAggregateInputType = {
+    id?: true
+    orcamento_id?: true
+    titulo?: true
+    preco?: true
+    _all?: true
+  }
+
+  export type ServicoAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Servico to aggregate.
+     */
+    where?: ServicoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Servicos to fetch.
+     */
+    orderBy?: ServicoOrderByWithRelationInput | ServicoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ServicoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Servicos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Servicos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Servicos
+    **/
+    _count?: true | ServicoCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ServicoAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ServicoSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ServicoMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ServicoMaxAggregateInputType
+  }
+
+  export type GetServicoAggregateType<T extends ServicoAggregateArgs> = {
+        [P in keyof T & keyof AggregateServico]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateServico[P]>
+      : GetScalarType<T[P], AggregateServico[P]>
+  }
+
+
+
+
+  export type ServicoGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ServicoWhereInput
+    orderBy?: ServicoOrderByWithAggregationInput | ServicoOrderByWithAggregationInput[]
+    by: ServicoScalarFieldEnum[] | ServicoScalarFieldEnum
+    having?: ServicoScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ServicoCountAggregateInputType | true
+    _avg?: ServicoAvgAggregateInputType
+    _sum?: ServicoSumAggregateInputType
+    _min?: ServicoMinAggregateInputType
+    _max?: ServicoMaxAggregateInputType
+  }
+
+  export type ServicoGroupByOutputType = {
+    id: number
+    orcamento_id: number
+    titulo: string
+    preco: Decimal
+    _count: ServicoCountAggregateOutputType | null
+    _avg: ServicoAvgAggregateOutputType | null
+    _sum: ServicoSumAggregateOutputType | null
+    _min: ServicoMinAggregateOutputType | null
+    _max: ServicoMaxAggregateOutputType | null
+  }
+
+  type GetServicoGroupByPayload<T extends ServicoGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ServicoGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ServicoGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ServicoGroupByOutputType[P]>
+            : GetScalarType<T[P], ServicoGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ServicoSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    orcamento_id?: boolean
+    titulo?: boolean
+    preco?: boolean
+    orcamento?: boolean | OrcamentoDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["servico"]>
+
+  export type ServicoSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    orcamento_id?: boolean
+    titulo?: boolean
+    preco?: boolean
+    orcamento?: boolean | OrcamentoDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["servico"]>
+
+  export type ServicoSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    orcamento_id?: boolean
+    titulo?: boolean
+    preco?: boolean
+    orcamento?: boolean | OrcamentoDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["servico"]>
+
+  export type ServicoSelectScalar = {
+    id?: boolean
+    orcamento_id?: boolean
+    titulo?: boolean
+    preco?: boolean
+  }
+
+  export type ServicoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "orcamento_id" | "titulo" | "preco", ExtArgs["result"]["servico"]>
+  export type ServicoInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    orcamento?: boolean | OrcamentoDefaultArgs<ExtArgs>
+  }
+  export type ServicoIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    orcamento?: boolean | OrcamentoDefaultArgs<ExtArgs>
+  }
+  export type ServicoIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    orcamento?: boolean | OrcamentoDefaultArgs<ExtArgs>
+  }
+
+  export type $ServicoPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Servico"
+    objects: {
+      orcamento: Prisma.$OrcamentoPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      orcamento_id: number
+      titulo: string
+      preco: Prisma.Decimal
+    }, ExtArgs["result"]["servico"]>
+    composites: {}
+  }
+
+  type ServicoGetPayload<S extends boolean | null | undefined | ServicoDefaultArgs> = $Result.GetResult<Prisma.$ServicoPayload, S>
+
+  type ServicoCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ServicoFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ServicoCountAggregateInputType | true
+    }
+
+  export interface ServicoDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Servico'], meta: { name: 'Servico' } }
+    /**
+     * Find zero or one Servico that matches the filter.
+     * @param {ServicoFindUniqueArgs} args - Arguments to find a Servico
+     * @example
+     * // Get one Servico
+     * const servico = await prisma.servico.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ServicoFindUniqueArgs>(args: SelectSubset<T, ServicoFindUniqueArgs<ExtArgs>>): Prisma__ServicoClient<$Result.GetResult<Prisma.$ServicoPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Servico that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ServicoFindUniqueOrThrowArgs} args - Arguments to find a Servico
+     * @example
+     * // Get one Servico
+     * const servico = await prisma.servico.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ServicoFindUniqueOrThrowArgs>(args: SelectSubset<T, ServicoFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ServicoClient<$Result.GetResult<Prisma.$ServicoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Servico that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ServicoFindFirstArgs} args - Arguments to find a Servico
+     * @example
+     * // Get one Servico
+     * const servico = await prisma.servico.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ServicoFindFirstArgs>(args?: SelectSubset<T, ServicoFindFirstArgs<ExtArgs>>): Prisma__ServicoClient<$Result.GetResult<Prisma.$ServicoPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Servico that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ServicoFindFirstOrThrowArgs} args - Arguments to find a Servico
+     * @example
+     * // Get one Servico
+     * const servico = await prisma.servico.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ServicoFindFirstOrThrowArgs>(args?: SelectSubset<T, ServicoFindFirstOrThrowArgs<ExtArgs>>): Prisma__ServicoClient<$Result.GetResult<Prisma.$ServicoPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Servicos that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ServicoFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Servicos
+     * const servicos = await prisma.servico.findMany()
+     * 
+     * // Get first 10 Servicos
+     * const servicos = await prisma.servico.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const servicoWithIdOnly = await prisma.servico.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ServicoFindManyArgs>(args?: SelectSubset<T, ServicoFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ServicoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Servico.
+     * @param {ServicoCreateArgs} args - Arguments to create a Servico.
+     * @example
+     * // Create one Servico
+     * const Servico = await prisma.servico.create({
+     *   data: {
+     *     // ... data to create a Servico
+     *   }
+     * })
+     * 
+     */
+    create<T extends ServicoCreateArgs>(args: SelectSubset<T, ServicoCreateArgs<ExtArgs>>): Prisma__ServicoClient<$Result.GetResult<Prisma.$ServicoPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Servicos.
+     * @param {ServicoCreateManyArgs} args - Arguments to create many Servicos.
+     * @example
+     * // Create many Servicos
+     * const servico = await prisma.servico.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ServicoCreateManyArgs>(args?: SelectSubset<T, ServicoCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Servicos and returns the data saved in the database.
+     * @param {ServicoCreateManyAndReturnArgs} args - Arguments to create many Servicos.
+     * @example
+     * // Create many Servicos
+     * const servico = await prisma.servico.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Servicos and only return the `id`
+     * const servicoWithIdOnly = await prisma.servico.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ServicoCreateManyAndReturnArgs>(args?: SelectSubset<T, ServicoCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ServicoPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Servico.
+     * @param {ServicoDeleteArgs} args - Arguments to delete one Servico.
+     * @example
+     * // Delete one Servico
+     * const Servico = await prisma.servico.delete({
+     *   where: {
+     *     // ... filter to delete one Servico
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ServicoDeleteArgs>(args: SelectSubset<T, ServicoDeleteArgs<ExtArgs>>): Prisma__ServicoClient<$Result.GetResult<Prisma.$ServicoPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Servico.
+     * @param {ServicoUpdateArgs} args - Arguments to update one Servico.
+     * @example
+     * // Update one Servico
+     * const servico = await prisma.servico.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ServicoUpdateArgs>(args: SelectSubset<T, ServicoUpdateArgs<ExtArgs>>): Prisma__ServicoClient<$Result.GetResult<Prisma.$ServicoPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Servicos.
+     * @param {ServicoDeleteManyArgs} args - Arguments to filter Servicos to delete.
+     * @example
+     * // Delete a few Servicos
+     * const { count } = await prisma.servico.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ServicoDeleteManyArgs>(args?: SelectSubset<T, ServicoDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Servicos.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ServicoUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Servicos
+     * const servico = await prisma.servico.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ServicoUpdateManyArgs>(args: SelectSubset<T, ServicoUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Servicos and returns the data updated in the database.
+     * @param {ServicoUpdateManyAndReturnArgs} args - Arguments to update many Servicos.
+     * @example
+     * // Update many Servicos
+     * const servico = await prisma.servico.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Servicos and only return the `id`
+     * const servicoWithIdOnly = await prisma.servico.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ServicoUpdateManyAndReturnArgs>(args: SelectSubset<T, ServicoUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ServicoPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Servico.
+     * @param {ServicoUpsertArgs} args - Arguments to update or create a Servico.
+     * @example
+     * // Update or create a Servico
+     * const servico = await prisma.servico.upsert({
+     *   create: {
+     *     // ... data to create a Servico
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Servico we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ServicoUpsertArgs>(args: SelectSubset<T, ServicoUpsertArgs<ExtArgs>>): Prisma__ServicoClient<$Result.GetResult<Prisma.$ServicoPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Servicos.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ServicoCountArgs} args - Arguments to filter Servicos to count.
+     * @example
+     * // Count the number of Servicos
+     * const count = await prisma.servico.count({
+     *   where: {
+     *     // ... the filter for the Servicos we want to count
+     *   }
+     * })
+    **/
+    count<T extends ServicoCountArgs>(
+      args?: Subset<T, ServicoCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ServicoCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Servico.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ServicoAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ServicoAggregateArgs>(args: Subset<T, ServicoAggregateArgs>): Prisma.PrismaPromise<GetServicoAggregateType<T>>
+
+    /**
+     * Group by Servico.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ServicoGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ServicoGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ServicoGroupByArgs['orderBy'] }
+        : { orderBy?: ServicoGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ServicoGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetServicoGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Servico model
+   */
+  readonly fields: ServicoFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Servico.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ServicoClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    orcamento<T extends OrcamentoDefaultArgs<ExtArgs> = {}>(args?: Subset<T, OrcamentoDefaultArgs<ExtArgs>>): Prisma__OrcamentoClient<$Result.GetResult<Prisma.$OrcamentoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Servico model
+   */
+  interface ServicoFieldRefs {
+    readonly id: FieldRef<"Servico", 'Int'>
+    readonly orcamento_id: FieldRef<"Servico", 'Int'>
+    readonly titulo: FieldRef<"Servico", 'String'>
+    readonly preco: FieldRef<"Servico", 'Decimal'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Servico findUnique
+   */
+  export type ServicoFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Servico
+     */
+    select?: ServicoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Servico
+     */
+    omit?: ServicoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServicoInclude<ExtArgs> | null
+    /**
+     * Filter, which Servico to fetch.
+     */
+    where: ServicoWhereUniqueInput
+  }
+
+  /**
+   * Servico findUniqueOrThrow
+   */
+  export type ServicoFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Servico
+     */
+    select?: ServicoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Servico
+     */
+    omit?: ServicoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServicoInclude<ExtArgs> | null
+    /**
+     * Filter, which Servico to fetch.
+     */
+    where: ServicoWhereUniqueInput
+  }
+
+  /**
+   * Servico findFirst
+   */
+  export type ServicoFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Servico
+     */
+    select?: ServicoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Servico
+     */
+    omit?: ServicoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServicoInclude<ExtArgs> | null
+    /**
+     * Filter, which Servico to fetch.
+     */
+    where?: ServicoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Servicos to fetch.
+     */
+    orderBy?: ServicoOrderByWithRelationInput | ServicoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Servicos.
+     */
+    cursor?: ServicoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Servicos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Servicos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Servicos.
+     */
+    distinct?: ServicoScalarFieldEnum | ServicoScalarFieldEnum[]
+  }
+
+  /**
+   * Servico findFirstOrThrow
+   */
+  export type ServicoFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Servico
+     */
+    select?: ServicoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Servico
+     */
+    omit?: ServicoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServicoInclude<ExtArgs> | null
+    /**
+     * Filter, which Servico to fetch.
+     */
+    where?: ServicoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Servicos to fetch.
+     */
+    orderBy?: ServicoOrderByWithRelationInput | ServicoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Servicos.
+     */
+    cursor?: ServicoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Servicos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Servicos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Servicos.
+     */
+    distinct?: ServicoScalarFieldEnum | ServicoScalarFieldEnum[]
+  }
+
+  /**
+   * Servico findMany
+   */
+  export type ServicoFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Servico
+     */
+    select?: ServicoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Servico
+     */
+    omit?: ServicoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServicoInclude<ExtArgs> | null
+    /**
+     * Filter, which Servicos to fetch.
+     */
+    where?: ServicoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Servicos to fetch.
+     */
+    orderBy?: ServicoOrderByWithRelationInput | ServicoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Servicos.
+     */
+    cursor?: ServicoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Servicos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Servicos.
+     */
+    skip?: number
+    distinct?: ServicoScalarFieldEnum | ServicoScalarFieldEnum[]
+  }
+
+  /**
+   * Servico create
+   */
+  export type ServicoCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Servico
+     */
+    select?: ServicoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Servico
+     */
+    omit?: ServicoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServicoInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Servico.
+     */
+    data: XOR<ServicoCreateInput, ServicoUncheckedCreateInput>
+  }
+
+  /**
+   * Servico createMany
+   */
+  export type ServicoCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Servicos.
+     */
+    data: ServicoCreateManyInput | ServicoCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Servico createManyAndReturn
+   */
+  export type ServicoCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Servico
+     */
+    select?: ServicoSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Servico
+     */
+    omit?: ServicoOmit<ExtArgs> | null
+    /**
+     * The data used to create many Servicos.
+     */
+    data: ServicoCreateManyInput | ServicoCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServicoIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Servico update
+   */
+  export type ServicoUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Servico
+     */
+    select?: ServicoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Servico
+     */
+    omit?: ServicoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServicoInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Servico.
+     */
+    data: XOR<ServicoUpdateInput, ServicoUncheckedUpdateInput>
+    /**
+     * Choose, which Servico to update.
+     */
+    where: ServicoWhereUniqueInput
+  }
+
+  /**
+   * Servico updateMany
+   */
+  export type ServicoUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Servicos.
+     */
+    data: XOR<ServicoUpdateManyMutationInput, ServicoUncheckedUpdateManyInput>
+    /**
+     * Filter which Servicos to update
+     */
+    where?: ServicoWhereInput
+    /**
+     * Limit how many Servicos to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Servico updateManyAndReturn
+   */
+  export type ServicoUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Servico
+     */
+    select?: ServicoSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Servico
+     */
+    omit?: ServicoOmit<ExtArgs> | null
+    /**
+     * The data used to update Servicos.
+     */
+    data: XOR<ServicoUpdateManyMutationInput, ServicoUncheckedUpdateManyInput>
+    /**
+     * Filter which Servicos to update
+     */
+    where?: ServicoWhereInput
+    /**
+     * Limit how many Servicos to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServicoIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Servico upsert
+   */
+  export type ServicoUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Servico
+     */
+    select?: ServicoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Servico
+     */
+    omit?: ServicoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServicoInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Servico to update in case it exists.
+     */
+    where: ServicoWhereUniqueInput
+    /**
+     * In case the Servico found by the `where` argument doesn't exist, create a new Servico with this data.
+     */
+    create: XOR<ServicoCreateInput, ServicoUncheckedCreateInput>
+    /**
+     * In case the Servico was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ServicoUpdateInput, ServicoUncheckedUpdateInput>
+  }
+
+  /**
+   * Servico delete
+   */
+  export type ServicoDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Servico
+     */
+    select?: ServicoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Servico
+     */
+    omit?: ServicoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServicoInclude<ExtArgs> | null
+    /**
+     * Filter which Servico to delete.
+     */
+    where: ServicoWhereUniqueInput
+  }
+
+  /**
+   * Servico deleteMany
+   */
+  export type ServicoDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Servicos to delete
+     */
+    where?: ServicoWhereInput
+    /**
+     * Limit how many Servicos to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Servico without action
+   */
+  export type ServicoDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Servico
+     */
+    select?: ServicoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Servico
+     */
+    omit?: ServicoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServicoInclude<ExtArgs> | null
   }
 
 
@@ -7215,6 +8540,8 @@ export namespace Prisma {
     senha: 'senha',
     tipo_usuario: 'tipo_usuario',
     documento: 'documento',
+    cep: 'cep',
+    nome_empresa: 'nome_empresa',
     created_at: 'created_at',
     updated_at: 'updated_at'
   };
@@ -7230,6 +8557,7 @@ export namespace Prisma {
     tipo_cliente: 'tipo_cliente',
     documento: 'documento',
     endereco: 'endereco',
+    cep: 'cep',
     created_at: 'created_at',
     updated_at: 'updated_at'
   };
@@ -7247,6 +8575,8 @@ export namespace Prisma {
     data_validade: 'data_validade',
     status: 'status',
     pdf_path: 'pdf_path',
+    meios_pagamento: 'meios_pagamento',
+    periodo_garantia: 'periodo_garantia',
     created_at: 'created_at',
     updated_at: 'updated_at'
   };
@@ -7260,7 +8590,6 @@ export namespace Prisma {
     marca: 'marca',
     preco_unitario: 'preco_unitario',
     unidade_medida: 'unidade_medida',
-    descricao: 'descricao',
     created_at: 'created_at',
     updated_at: 'updated_at'
   };
@@ -7273,10 +8602,23 @@ export namespace Prisma {
     orcamento_id: 'orcamento_id',
     item_id: 'item_id',
     quantidade: 'quantidade',
-    preco_unitario: 'preco_unitario'
+    preco_unitario: 'preco_unitario',
+    nome: 'nome',
+    marca: 'marca',
+    unidade_medida: 'unidade_medida'
   };
 
   export type OrcamentoItemScalarFieldEnum = (typeof OrcamentoItemScalarFieldEnum)[keyof typeof OrcamentoItemScalarFieldEnum]
+
+
+  export const ServicoScalarFieldEnum: {
+    id: 'id',
+    orcamento_id: 'orcamento_id',
+    titulo: 'titulo',
+    preco: 'preco'
+  };
+
+  export type ServicoScalarFieldEnum = (typeof ServicoScalarFieldEnum)[keyof typeof ServicoScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -7434,6 +8776,8 @@ export namespace Prisma {
     senha?: StringFilter<"Usuario"> | string
     tipo_usuario?: EnumTipoUsuarioFilter<"Usuario"> | $Enums.TipoUsuario
     documento?: StringFilter<"Usuario"> | string
+    cep?: StringNullableFilter<"Usuario"> | string | null
+    nome_empresa?: StringNullableFilter<"Usuario"> | string | null
     created_at?: DateTimeFilter<"Usuario"> | Date | string
     updated_at?: DateTimeFilter<"Usuario"> | Date | string
     orcamentos?: OrcamentoListRelationFilter
@@ -7447,6 +8791,8 @@ export namespace Prisma {
     senha?: SortOrder
     tipo_usuario?: SortOrder
     documento?: SortOrder
+    cep?: SortOrderInput | SortOrder
+    nome_empresa?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     orcamentos?: OrcamentoOrderByRelationAggregateInput
@@ -7463,6 +8809,8 @@ export namespace Prisma {
     celular?: StringNullableFilter<"Usuario"> | string | null
     senha?: StringFilter<"Usuario"> | string
     tipo_usuario?: EnumTipoUsuarioFilter<"Usuario"> | $Enums.TipoUsuario
+    cep?: StringNullableFilter<"Usuario"> | string | null
+    nome_empresa?: StringNullableFilter<"Usuario"> | string | null
     created_at?: DateTimeFilter<"Usuario"> | Date | string
     updated_at?: DateTimeFilter<"Usuario"> | Date | string
     orcamentos?: OrcamentoListRelationFilter
@@ -7476,6 +8824,8 @@ export namespace Prisma {
     senha?: SortOrder
     tipo_usuario?: SortOrder
     documento?: SortOrder
+    cep?: SortOrderInput | SortOrder
+    nome_empresa?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     _count?: UsuarioCountOrderByAggregateInput
@@ -7496,6 +8846,8 @@ export namespace Prisma {
     senha?: StringWithAggregatesFilter<"Usuario"> | string
     tipo_usuario?: EnumTipoUsuarioWithAggregatesFilter<"Usuario"> | $Enums.TipoUsuario
     documento?: StringWithAggregatesFilter<"Usuario"> | string
+    cep?: StringNullableWithAggregatesFilter<"Usuario"> | string | null
+    nome_empresa?: StringNullableWithAggregatesFilter<"Usuario"> | string | null
     created_at?: DateTimeWithAggregatesFilter<"Usuario"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"Usuario"> | Date | string
   }
@@ -7511,6 +8863,7 @@ export namespace Prisma {
     tipo_cliente?: EnumTipoClienteFilter<"Cliente"> | $Enums.TipoCliente
     documento?: StringFilter<"Cliente"> | string
     endereco?: StringNullableFilter<"Cliente"> | string | null
+    cep?: StringNullableFilter<"Cliente"> | string | null
     created_at?: DateTimeFilter<"Cliente"> | Date | string
     updated_at?: DateTimeFilter<"Cliente"> | Date | string
     orcamentos?: OrcamentoListRelationFilter
@@ -7524,6 +8877,7 @@ export namespace Prisma {
     tipo_cliente?: SortOrder
     documento?: SortOrder
     endereco?: SortOrderInput | SortOrder
+    cep?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     orcamentos?: OrcamentoOrderByRelationAggregateInput
@@ -7540,6 +8894,7 @@ export namespace Prisma {
     celular?: StringNullableFilter<"Cliente"> | string | null
     tipo_cliente?: EnumTipoClienteFilter<"Cliente"> | $Enums.TipoCliente
     endereco?: StringNullableFilter<"Cliente"> | string | null
+    cep?: StringNullableFilter<"Cliente"> | string | null
     created_at?: DateTimeFilter<"Cliente"> | Date | string
     updated_at?: DateTimeFilter<"Cliente"> | Date | string
     orcamentos?: OrcamentoListRelationFilter
@@ -7553,6 +8908,7 @@ export namespace Prisma {
     tipo_cliente?: SortOrder
     documento?: SortOrder
     endereco?: SortOrderInput | SortOrder
+    cep?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     _count?: ClienteCountOrderByAggregateInput
@@ -7573,6 +8929,7 @@ export namespace Prisma {
     tipo_cliente?: EnumTipoClienteWithAggregatesFilter<"Cliente"> | $Enums.TipoCliente
     documento?: StringWithAggregatesFilter<"Cliente"> | string
     endereco?: StringNullableWithAggregatesFilter<"Cliente"> | string | null
+    cep?: StringNullableWithAggregatesFilter<"Cliente"> | string | null
     created_at?: DateTimeWithAggregatesFilter<"Cliente"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"Cliente"> | Date | string
   }
@@ -7590,11 +8947,14 @@ export namespace Prisma {
     data_validade?: DateTimeFilter<"Orcamento"> | Date | string
     status?: EnumStatusOrcamentoFilter<"Orcamento"> | $Enums.StatusOrcamento
     pdf_path?: StringNullableFilter<"Orcamento"> | string | null
+    meios_pagamento?: StringNullableFilter<"Orcamento"> | string | null
+    periodo_garantia?: StringNullableFilter<"Orcamento"> | string | null
     created_at?: DateTimeFilter<"Orcamento"> | Date | string
     updated_at?: DateTimeFilter<"Orcamento"> | Date | string
     cliente?: XOR<ClienteScalarRelationFilter, ClienteWhereInput>
     usuario?: XOR<UsuarioScalarRelationFilter, UsuarioWhereInput>
     itens?: OrcamentoItemListRelationFilter
+    servicos?: ServicoListRelationFilter
   }
 
   export type OrcamentoOrderByWithRelationInput = {
@@ -7607,11 +8967,14 @@ export namespace Prisma {
     data_validade?: SortOrder
     status?: SortOrder
     pdf_path?: SortOrderInput | SortOrder
+    meios_pagamento?: SortOrderInput | SortOrder
+    periodo_garantia?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     cliente?: ClienteOrderByWithRelationInput
     usuario?: UsuarioOrderByWithRelationInput
     itens?: OrcamentoItemOrderByRelationAggregateInput
+    servicos?: ServicoOrderByRelationAggregateInput
   }
 
   export type OrcamentoWhereUniqueInput = Prisma.AtLeast<{
@@ -7627,11 +8990,14 @@ export namespace Prisma {
     data_validade?: DateTimeFilter<"Orcamento"> | Date | string
     status?: EnumStatusOrcamentoFilter<"Orcamento"> | $Enums.StatusOrcamento
     pdf_path?: StringNullableFilter<"Orcamento"> | string | null
+    meios_pagamento?: StringNullableFilter<"Orcamento"> | string | null
+    periodo_garantia?: StringNullableFilter<"Orcamento"> | string | null
     created_at?: DateTimeFilter<"Orcamento"> | Date | string
     updated_at?: DateTimeFilter<"Orcamento"> | Date | string
     cliente?: XOR<ClienteScalarRelationFilter, ClienteWhereInput>
     usuario?: XOR<UsuarioScalarRelationFilter, UsuarioWhereInput>
     itens?: OrcamentoItemListRelationFilter
+    servicos?: ServicoListRelationFilter
   }, "id">
 
   export type OrcamentoOrderByWithAggregationInput = {
@@ -7644,6 +9010,8 @@ export namespace Prisma {
     data_validade?: SortOrder
     status?: SortOrder
     pdf_path?: SortOrderInput | SortOrder
+    meios_pagamento?: SortOrderInput | SortOrder
+    periodo_garantia?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     _count?: OrcamentoCountOrderByAggregateInput
@@ -7666,6 +9034,8 @@ export namespace Prisma {
     data_validade?: DateTimeWithAggregatesFilter<"Orcamento"> | Date | string
     status?: EnumStatusOrcamentoWithAggregatesFilter<"Orcamento"> | $Enums.StatusOrcamento
     pdf_path?: StringNullableWithAggregatesFilter<"Orcamento"> | string | null
+    meios_pagamento?: StringNullableWithAggregatesFilter<"Orcamento"> | string | null
+    periodo_garantia?: StringNullableWithAggregatesFilter<"Orcamento"> | string | null
     created_at?: DateTimeWithAggregatesFilter<"Orcamento"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"Orcamento"> | Date | string
   }
@@ -7679,7 +9049,6 @@ export namespace Prisma {
     marca?: StringNullableFilter<"Item"> | string | null
     preco_unitario?: DecimalFilter<"Item"> | Decimal | DecimalJsLike | number | string
     unidade_medida?: StringFilter<"Item"> | string
-    descricao?: StringNullableFilter<"Item"> | string | null
     created_at?: DateTimeFilter<"Item"> | Date | string
     updated_at?: DateTimeFilter<"Item"> | Date | string
     orcamentos?: OrcamentoItemListRelationFilter
@@ -7691,7 +9060,6 @@ export namespace Prisma {
     marca?: SortOrderInput | SortOrder
     preco_unitario?: SortOrder
     unidade_medida?: SortOrder
-    descricao?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     orcamentos?: OrcamentoItemOrderByRelationAggregateInput
@@ -7706,7 +9074,6 @@ export namespace Prisma {
     marca?: StringNullableFilter<"Item"> | string | null
     preco_unitario?: DecimalFilter<"Item"> | Decimal | DecimalJsLike | number | string
     unidade_medida?: StringFilter<"Item"> | string
-    descricao?: StringNullableFilter<"Item"> | string | null
     created_at?: DateTimeFilter<"Item"> | Date | string
     updated_at?: DateTimeFilter<"Item"> | Date | string
     orcamentos?: OrcamentoItemListRelationFilter
@@ -7718,7 +9085,6 @@ export namespace Prisma {
     marca?: SortOrderInput | SortOrder
     preco_unitario?: SortOrder
     unidade_medida?: SortOrder
-    descricao?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     _count?: ItemCountOrderByAggregateInput
@@ -7737,7 +9103,6 @@ export namespace Prisma {
     marca?: StringNullableWithAggregatesFilter<"Item"> | string | null
     preco_unitario?: DecimalWithAggregatesFilter<"Item"> | Decimal | DecimalJsLike | number | string
     unidade_medida?: StringWithAggregatesFilter<"Item"> | string
-    descricao?: StringNullableWithAggregatesFilter<"Item"> | string | null
     created_at?: DateTimeWithAggregatesFilter<"Item"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"Item"> | Date | string
   }
@@ -7748,19 +9113,25 @@ export namespace Prisma {
     NOT?: OrcamentoItemWhereInput | OrcamentoItemWhereInput[]
     id?: IntFilter<"OrcamentoItem"> | number
     orcamento_id?: IntFilter<"OrcamentoItem"> | number
-    item_id?: IntFilter<"OrcamentoItem"> | number
+    item_id?: IntNullableFilter<"OrcamentoItem"> | number | null
     quantidade?: DecimalFilter<"OrcamentoItem"> | Decimal | DecimalJsLike | number | string
     preco_unitario?: DecimalFilter<"OrcamentoItem"> | Decimal | DecimalJsLike | number | string
+    nome?: StringNullableFilter<"OrcamentoItem"> | string | null
+    marca?: StringNullableFilter<"OrcamentoItem"> | string | null
+    unidade_medida?: StringNullableFilter<"OrcamentoItem"> | string | null
     orcamento?: XOR<OrcamentoScalarRelationFilter, OrcamentoWhereInput>
-    item?: XOR<ItemScalarRelationFilter, ItemWhereInput>
+    item?: XOR<ItemNullableScalarRelationFilter, ItemWhereInput> | null
   }
 
   export type OrcamentoItemOrderByWithRelationInput = {
     id?: SortOrder
     orcamento_id?: SortOrder
-    item_id?: SortOrder
+    item_id?: SortOrderInput | SortOrder
     quantidade?: SortOrder
     preco_unitario?: SortOrder
+    nome?: SortOrderInput | SortOrder
+    marca?: SortOrderInput | SortOrder
+    unidade_medida?: SortOrderInput | SortOrder
     orcamento?: OrcamentoOrderByWithRelationInput
     item?: ItemOrderByWithRelationInput
   }
@@ -7771,19 +9142,25 @@ export namespace Prisma {
     OR?: OrcamentoItemWhereInput[]
     NOT?: OrcamentoItemWhereInput | OrcamentoItemWhereInput[]
     orcamento_id?: IntFilter<"OrcamentoItem"> | number
-    item_id?: IntFilter<"OrcamentoItem"> | number
+    item_id?: IntNullableFilter<"OrcamentoItem"> | number | null
     quantidade?: DecimalFilter<"OrcamentoItem"> | Decimal | DecimalJsLike | number | string
     preco_unitario?: DecimalFilter<"OrcamentoItem"> | Decimal | DecimalJsLike | number | string
+    nome?: StringNullableFilter<"OrcamentoItem"> | string | null
+    marca?: StringNullableFilter<"OrcamentoItem"> | string | null
+    unidade_medida?: StringNullableFilter<"OrcamentoItem"> | string | null
     orcamento?: XOR<OrcamentoScalarRelationFilter, OrcamentoWhereInput>
-    item?: XOR<ItemScalarRelationFilter, ItemWhereInput>
+    item?: XOR<ItemNullableScalarRelationFilter, ItemWhereInput> | null
   }, "id">
 
   export type OrcamentoItemOrderByWithAggregationInput = {
     id?: SortOrder
     orcamento_id?: SortOrder
-    item_id?: SortOrder
+    item_id?: SortOrderInput | SortOrder
     quantidade?: SortOrder
     preco_unitario?: SortOrder
+    nome?: SortOrderInput | SortOrder
+    marca?: SortOrderInput | SortOrder
+    unidade_medida?: SortOrderInput | SortOrder
     _count?: OrcamentoItemCountOrderByAggregateInput
     _avg?: OrcamentoItemAvgOrderByAggregateInput
     _max?: OrcamentoItemMaxOrderByAggregateInput
@@ -7797,9 +9174,64 @@ export namespace Prisma {
     NOT?: OrcamentoItemScalarWhereWithAggregatesInput | OrcamentoItemScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"OrcamentoItem"> | number
     orcamento_id?: IntWithAggregatesFilter<"OrcamentoItem"> | number
-    item_id?: IntWithAggregatesFilter<"OrcamentoItem"> | number
+    item_id?: IntNullableWithAggregatesFilter<"OrcamentoItem"> | number | null
     quantidade?: DecimalWithAggregatesFilter<"OrcamentoItem"> | Decimal | DecimalJsLike | number | string
     preco_unitario?: DecimalWithAggregatesFilter<"OrcamentoItem"> | Decimal | DecimalJsLike | number | string
+    nome?: StringNullableWithAggregatesFilter<"OrcamentoItem"> | string | null
+    marca?: StringNullableWithAggregatesFilter<"OrcamentoItem"> | string | null
+    unidade_medida?: StringNullableWithAggregatesFilter<"OrcamentoItem"> | string | null
+  }
+
+  export type ServicoWhereInput = {
+    AND?: ServicoWhereInput | ServicoWhereInput[]
+    OR?: ServicoWhereInput[]
+    NOT?: ServicoWhereInput | ServicoWhereInput[]
+    id?: IntFilter<"Servico"> | number
+    orcamento_id?: IntFilter<"Servico"> | number
+    titulo?: StringFilter<"Servico"> | string
+    preco?: DecimalFilter<"Servico"> | Decimal | DecimalJsLike | number | string
+    orcamento?: XOR<OrcamentoScalarRelationFilter, OrcamentoWhereInput>
+  }
+
+  export type ServicoOrderByWithRelationInput = {
+    id?: SortOrder
+    orcamento_id?: SortOrder
+    titulo?: SortOrder
+    preco?: SortOrder
+    orcamento?: OrcamentoOrderByWithRelationInput
+  }
+
+  export type ServicoWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: ServicoWhereInput | ServicoWhereInput[]
+    OR?: ServicoWhereInput[]
+    NOT?: ServicoWhereInput | ServicoWhereInput[]
+    orcamento_id?: IntFilter<"Servico"> | number
+    titulo?: StringFilter<"Servico"> | string
+    preco?: DecimalFilter<"Servico"> | Decimal | DecimalJsLike | number | string
+    orcamento?: XOR<OrcamentoScalarRelationFilter, OrcamentoWhereInput>
+  }, "id">
+
+  export type ServicoOrderByWithAggregationInput = {
+    id?: SortOrder
+    orcamento_id?: SortOrder
+    titulo?: SortOrder
+    preco?: SortOrder
+    _count?: ServicoCountOrderByAggregateInput
+    _avg?: ServicoAvgOrderByAggregateInput
+    _max?: ServicoMaxOrderByAggregateInput
+    _min?: ServicoMinOrderByAggregateInput
+    _sum?: ServicoSumOrderByAggregateInput
+  }
+
+  export type ServicoScalarWhereWithAggregatesInput = {
+    AND?: ServicoScalarWhereWithAggregatesInput | ServicoScalarWhereWithAggregatesInput[]
+    OR?: ServicoScalarWhereWithAggregatesInput[]
+    NOT?: ServicoScalarWhereWithAggregatesInput | ServicoScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Servico"> | number
+    orcamento_id?: IntWithAggregatesFilter<"Servico"> | number
+    titulo?: StringWithAggregatesFilter<"Servico"> | string
+    preco?: DecimalWithAggregatesFilter<"Servico"> | Decimal | DecimalJsLike | number | string
   }
 
   export type UsuarioCreateInput = {
@@ -7809,6 +9241,8 @@ export namespace Prisma {
     senha: string
     tipo_usuario: $Enums.TipoUsuario
     documento: string
+    cep?: string | null
+    nome_empresa?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     orcamentos?: OrcamentoCreateNestedManyWithoutUsuarioInput
@@ -7822,6 +9256,8 @@ export namespace Prisma {
     senha: string
     tipo_usuario: $Enums.TipoUsuario
     documento: string
+    cep?: string | null
+    nome_empresa?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     orcamentos?: OrcamentoUncheckedCreateNestedManyWithoutUsuarioInput
@@ -7834,6 +9270,8 @@ export namespace Prisma {
     senha?: StringFieldUpdateOperationsInput | string
     tipo_usuario?: EnumTipoUsuarioFieldUpdateOperationsInput | $Enums.TipoUsuario
     documento?: StringFieldUpdateOperationsInput | string
+    cep?: NullableStringFieldUpdateOperationsInput | string | null
+    nome_empresa?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     orcamentos?: OrcamentoUpdateManyWithoutUsuarioNestedInput
@@ -7847,6 +9285,8 @@ export namespace Prisma {
     senha?: StringFieldUpdateOperationsInput | string
     tipo_usuario?: EnumTipoUsuarioFieldUpdateOperationsInput | $Enums.TipoUsuario
     documento?: StringFieldUpdateOperationsInput | string
+    cep?: NullableStringFieldUpdateOperationsInput | string | null
+    nome_empresa?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     orcamentos?: OrcamentoUncheckedUpdateManyWithoutUsuarioNestedInput
@@ -7860,6 +9300,8 @@ export namespace Prisma {
     senha: string
     tipo_usuario: $Enums.TipoUsuario
     documento: string
+    cep?: string | null
+    nome_empresa?: string | null
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -7871,6 +9313,8 @@ export namespace Prisma {
     senha?: StringFieldUpdateOperationsInput | string
     tipo_usuario?: EnumTipoUsuarioFieldUpdateOperationsInput | $Enums.TipoUsuario
     documento?: StringFieldUpdateOperationsInput | string
+    cep?: NullableStringFieldUpdateOperationsInput | string | null
+    nome_empresa?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -7883,6 +9327,8 @@ export namespace Prisma {
     senha?: StringFieldUpdateOperationsInput | string
     tipo_usuario?: EnumTipoUsuarioFieldUpdateOperationsInput | $Enums.TipoUsuario
     documento?: StringFieldUpdateOperationsInput | string
+    cep?: NullableStringFieldUpdateOperationsInput | string | null
+    nome_empresa?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -7894,6 +9340,7 @@ export namespace Prisma {
     tipo_cliente: $Enums.TipoCliente
     documento: string
     endereco?: string | null
+    cep?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     orcamentos?: OrcamentoCreateNestedManyWithoutClienteInput
@@ -7907,6 +9354,7 @@ export namespace Prisma {
     tipo_cliente: $Enums.TipoCliente
     documento: string
     endereco?: string | null
+    cep?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     orcamentos?: OrcamentoUncheckedCreateNestedManyWithoutClienteInput
@@ -7919,6 +9367,7 @@ export namespace Prisma {
     tipo_cliente?: EnumTipoClienteFieldUpdateOperationsInput | $Enums.TipoCliente
     documento?: StringFieldUpdateOperationsInput | string
     endereco?: NullableStringFieldUpdateOperationsInput | string | null
+    cep?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     orcamentos?: OrcamentoUpdateManyWithoutClienteNestedInput
@@ -7932,6 +9381,7 @@ export namespace Prisma {
     tipo_cliente?: EnumTipoClienteFieldUpdateOperationsInput | $Enums.TipoCliente
     documento?: StringFieldUpdateOperationsInput | string
     endereco?: NullableStringFieldUpdateOperationsInput | string | null
+    cep?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     orcamentos?: OrcamentoUncheckedUpdateManyWithoutClienteNestedInput
@@ -7945,6 +9395,7 @@ export namespace Prisma {
     tipo_cliente: $Enums.TipoCliente
     documento: string
     endereco?: string | null
+    cep?: string | null
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -7956,6 +9407,7 @@ export namespace Prisma {
     tipo_cliente?: EnumTipoClienteFieldUpdateOperationsInput | $Enums.TipoCliente
     documento?: StringFieldUpdateOperationsInput | string
     endereco?: NullableStringFieldUpdateOperationsInput | string | null
+    cep?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -7968,6 +9420,7 @@ export namespace Prisma {
     tipo_cliente?: EnumTipoClienteFieldUpdateOperationsInput | $Enums.TipoCliente
     documento?: StringFieldUpdateOperationsInput | string
     endereco?: NullableStringFieldUpdateOperationsInput | string | null
+    cep?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -7979,11 +9432,14 @@ export namespace Prisma {
     data_validade: Date | string
     status?: $Enums.StatusOrcamento
     pdf_path?: string | null
+    meios_pagamento?: string | null
+    periodo_garantia?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     cliente: ClienteCreateNestedOneWithoutOrcamentosInput
     usuario: UsuarioCreateNestedOneWithoutOrcamentosInput
     itens?: OrcamentoItemCreateNestedManyWithoutOrcamentoInput
+    servicos?: ServicoCreateNestedManyWithoutOrcamentoInput
   }
 
   export type OrcamentoUncheckedCreateInput = {
@@ -7996,9 +9452,12 @@ export namespace Prisma {
     data_validade: Date | string
     status?: $Enums.StatusOrcamento
     pdf_path?: string | null
+    meios_pagamento?: string | null
+    periodo_garantia?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     itens?: OrcamentoItemUncheckedCreateNestedManyWithoutOrcamentoInput
+    servicos?: ServicoUncheckedCreateNestedManyWithoutOrcamentoInput
   }
 
   export type OrcamentoUpdateInput = {
@@ -8008,11 +9467,14 @@ export namespace Prisma {
     data_validade?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumStatusOrcamentoFieldUpdateOperationsInput | $Enums.StatusOrcamento
     pdf_path?: NullableStringFieldUpdateOperationsInput | string | null
+    meios_pagamento?: NullableStringFieldUpdateOperationsInput | string | null
+    periodo_garantia?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     cliente?: ClienteUpdateOneRequiredWithoutOrcamentosNestedInput
     usuario?: UsuarioUpdateOneRequiredWithoutOrcamentosNestedInput
     itens?: OrcamentoItemUpdateManyWithoutOrcamentoNestedInput
+    servicos?: ServicoUpdateManyWithoutOrcamentoNestedInput
   }
 
   export type OrcamentoUncheckedUpdateInput = {
@@ -8025,9 +9487,12 @@ export namespace Prisma {
     data_validade?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumStatusOrcamentoFieldUpdateOperationsInput | $Enums.StatusOrcamento
     pdf_path?: NullableStringFieldUpdateOperationsInput | string | null
+    meios_pagamento?: NullableStringFieldUpdateOperationsInput | string | null
+    periodo_garantia?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     itens?: OrcamentoItemUncheckedUpdateManyWithoutOrcamentoNestedInput
+    servicos?: ServicoUncheckedUpdateManyWithoutOrcamentoNestedInput
   }
 
   export type OrcamentoCreateManyInput = {
@@ -8040,6 +9505,8 @@ export namespace Prisma {
     data_validade: Date | string
     status?: $Enums.StatusOrcamento
     pdf_path?: string | null
+    meios_pagamento?: string | null
+    periodo_garantia?: string | null
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -8051,6 +9518,8 @@ export namespace Prisma {
     data_validade?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumStatusOrcamentoFieldUpdateOperationsInput | $Enums.StatusOrcamento
     pdf_path?: NullableStringFieldUpdateOperationsInput | string | null
+    meios_pagamento?: NullableStringFieldUpdateOperationsInput | string | null
+    periodo_garantia?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -8065,6 +9534,8 @@ export namespace Prisma {
     data_validade?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumStatusOrcamentoFieldUpdateOperationsInput | $Enums.StatusOrcamento
     pdf_path?: NullableStringFieldUpdateOperationsInput | string | null
+    meios_pagamento?: NullableStringFieldUpdateOperationsInput | string | null
+    periodo_garantia?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -8074,7 +9545,6 @@ export namespace Prisma {
     marca?: string | null
     preco_unitario: Decimal | DecimalJsLike | number | string
     unidade_medida: string
-    descricao?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     orcamentos?: OrcamentoItemCreateNestedManyWithoutItemInput
@@ -8086,7 +9556,6 @@ export namespace Prisma {
     marca?: string | null
     preco_unitario: Decimal | DecimalJsLike | number | string
     unidade_medida: string
-    descricao?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     orcamentos?: OrcamentoItemUncheckedCreateNestedManyWithoutItemInput
@@ -8097,7 +9566,6 @@ export namespace Prisma {
     marca?: NullableStringFieldUpdateOperationsInput | string | null
     preco_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     unidade_medida?: StringFieldUpdateOperationsInput | string
-    descricao?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     orcamentos?: OrcamentoItemUpdateManyWithoutItemNestedInput
@@ -8109,7 +9577,6 @@ export namespace Prisma {
     marca?: NullableStringFieldUpdateOperationsInput | string | null
     preco_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     unidade_medida?: StringFieldUpdateOperationsInput | string
-    descricao?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     orcamentos?: OrcamentoItemUncheckedUpdateManyWithoutItemNestedInput
@@ -8121,7 +9588,6 @@ export namespace Prisma {
     marca?: string | null
     preco_unitario: Decimal | DecimalJsLike | number | string
     unidade_medida: string
-    descricao?: string | null
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -8131,7 +9597,6 @@ export namespace Prisma {
     marca?: NullableStringFieldUpdateOperationsInput | string | null
     preco_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     unidade_medida?: StringFieldUpdateOperationsInput | string
-    descricao?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -8142,7 +9607,6 @@ export namespace Prisma {
     marca?: NullableStringFieldUpdateOperationsInput | string | null
     preco_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     unidade_medida?: StringFieldUpdateOperationsInput | string
-    descricao?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -8150,52 +9614,118 @@ export namespace Prisma {
   export type OrcamentoItemCreateInput = {
     quantidade: Decimal | DecimalJsLike | number | string
     preco_unitario: Decimal | DecimalJsLike | number | string
+    nome?: string | null
+    marca?: string | null
+    unidade_medida?: string | null
     orcamento: OrcamentoCreateNestedOneWithoutItensInput
-    item: ItemCreateNestedOneWithoutOrcamentosInput
+    item?: ItemCreateNestedOneWithoutOrcamentosInput
   }
 
   export type OrcamentoItemUncheckedCreateInput = {
     id?: number
     orcamento_id: number
-    item_id: number
+    item_id?: number | null
     quantidade: Decimal | DecimalJsLike | number | string
     preco_unitario: Decimal | DecimalJsLike | number | string
+    nome?: string | null
+    marca?: string | null
+    unidade_medida?: string | null
   }
 
   export type OrcamentoItemUpdateInput = {
     quantidade?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     preco_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    nome?: NullableStringFieldUpdateOperationsInput | string | null
+    marca?: NullableStringFieldUpdateOperationsInput | string | null
+    unidade_medida?: NullableStringFieldUpdateOperationsInput | string | null
     orcamento?: OrcamentoUpdateOneRequiredWithoutItensNestedInput
-    item?: ItemUpdateOneRequiredWithoutOrcamentosNestedInput
+    item?: ItemUpdateOneWithoutOrcamentosNestedInput
   }
 
   export type OrcamentoItemUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     orcamento_id?: IntFieldUpdateOperationsInput | number
-    item_id?: IntFieldUpdateOperationsInput | number
+    item_id?: NullableIntFieldUpdateOperationsInput | number | null
     quantidade?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     preco_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    nome?: NullableStringFieldUpdateOperationsInput | string | null
+    marca?: NullableStringFieldUpdateOperationsInput | string | null
+    unidade_medida?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type OrcamentoItemCreateManyInput = {
     id?: number
     orcamento_id: number
-    item_id: number
+    item_id?: number | null
     quantidade: Decimal | DecimalJsLike | number | string
     preco_unitario: Decimal | DecimalJsLike | number | string
+    nome?: string | null
+    marca?: string | null
+    unidade_medida?: string | null
   }
 
   export type OrcamentoItemUpdateManyMutationInput = {
     quantidade?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     preco_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    nome?: NullableStringFieldUpdateOperationsInput | string | null
+    marca?: NullableStringFieldUpdateOperationsInput | string | null
+    unidade_medida?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type OrcamentoItemUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     orcamento_id?: IntFieldUpdateOperationsInput | number
-    item_id?: IntFieldUpdateOperationsInput | number
+    item_id?: NullableIntFieldUpdateOperationsInput | number | null
     quantidade?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     preco_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    nome?: NullableStringFieldUpdateOperationsInput | string | null
+    marca?: NullableStringFieldUpdateOperationsInput | string | null
+    unidade_medida?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ServicoCreateInput = {
+    titulo: string
+    preco: Decimal | DecimalJsLike | number | string
+    orcamento: OrcamentoCreateNestedOneWithoutServicosInput
+  }
+
+  export type ServicoUncheckedCreateInput = {
+    id?: number
+    orcamento_id: number
+    titulo: string
+    preco: Decimal | DecimalJsLike | number | string
+  }
+
+  export type ServicoUpdateInput = {
+    titulo?: StringFieldUpdateOperationsInput | string
+    preco?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    orcamento?: OrcamentoUpdateOneRequiredWithoutServicosNestedInput
+  }
+
+  export type ServicoUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    orcamento_id?: IntFieldUpdateOperationsInput | number
+    titulo?: StringFieldUpdateOperationsInput | string
+    preco?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+  }
+
+  export type ServicoCreateManyInput = {
+    id?: number
+    orcamento_id: number
+    titulo: string
+    preco: Decimal | DecimalJsLike | number | string
+  }
+
+  export type ServicoUpdateManyMutationInput = {
+    titulo?: StringFieldUpdateOperationsInput | string
+    preco?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+  }
+
+  export type ServicoUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    orcamento_id?: IntFieldUpdateOperationsInput | number
+    titulo?: StringFieldUpdateOperationsInput | string
+    preco?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -8280,6 +9810,8 @@ export namespace Prisma {
     senha?: SortOrder
     tipo_usuario?: SortOrder
     documento?: SortOrder
+    cep?: SortOrder
+    nome_empresa?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
   }
@@ -8296,6 +9828,8 @@ export namespace Prisma {
     senha?: SortOrder
     tipo_usuario?: SortOrder
     documento?: SortOrder
+    cep?: SortOrder
+    nome_empresa?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
   }
@@ -8308,6 +9842,8 @@ export namespace Prisma {
     senha?: SortOrder
     tipo_usuario?: SortOrder
     documento?: SortOrder
+    cep?: SortOrder
+    nome_empresa?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
   }
@@ -8407,6 +9943,7 @@ export namespace Prisma {
     tipo_cliente?: SortOrder
     documento?: SortOrder
     endereco?: SortOrder
+    cep?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
   }
@@ -8423,6 +9960,7 @@ export namespace Prisma {
     tipo_cliente?: SortOrder
     documento?: SortOrder
     endereco?: SortOrder
+    cep?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
   }
@@ -8435,6 +9973,7 @@ export namespace Prisma {
     tipo_cliente?: SortOrder
     documento?: SortOrder
     endereco?: SortOrder
+    cep?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
   }
@@ -8487,7 +10026,17 @@ export namespace Prisma {
     none?: OrcamentoItemWhereInput
   }
 
+  export type ServicoListRelationFilter = {
+    every?: ServicoWhereInput
+    some?: ServicoWhereInput
+    none?: ServicoWhereInput
+  }
+
   export type OrcamentoItemOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ServicoOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -8501,6 +10050,8 @@ export namespace Prisma {
     data_validade?: SortOrder
     status?: SortOrder
     pdf_path?: SortOrder
+    meios_pagamento?: SortOrder
+    periodo_garantia?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
   }
@@ -8522,6 +10073,8 @@ export namespace Prisma {
     data_validade?: SortOrder
     status?: SortOrder
     pdf_path?: SortOrder
+    meios_pagamento?: SortOrder
+    periodo_garantia?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
   }
@@ -8536,6 +10089,8 @@ export namespace Prisma {
     data_validade?: SortOrder
     status?: SortOrder
     pdf_path?: SortOrder
+    meios_pagamento?: SortOrder
+    periodo_garantia?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
   }
@@ -8579,7 +10134,6 @@ export namespace Prisma {
     marca?: SortOrder
     preco_unitario?: SortOrder
     unidade_medida?: SortOrder
-    descricao?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
   }
@@ -8595,7 +10149,6 @@ export namespace Prisma {
     marca?: SortOrder
     preco_unitario?: SortOrder
     unidade_medida?: SortOrder
-    descricao?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
   }
@@ -8606,7 +10159,6 @@ export namespace Prisma {
     marca?: SortOrder
     preco_unitario?: SortOrder
     unidade_medida?: SortOrder
-    descricao?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
   }
@@ -8616,14 +10168,25 @@ export namespace Prisma {
     preco_unitario?: SortOrder
   }
 
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
   export type OrcamentoScalarRelationFilter = {
     is?: OrcamentoWhereInput
     isNot?: OrcamentoWhereInput
   }
 
-  export type ItemScalarRelationFilter = {
-    is?: ItemWhereInput
-    isNot?: ItemWhereInput
+  export type ItemNullableScalarRelationFilter = {
+    is?: ItemWhereInput | null
+    isNot?: ItemWhereInput | null
   }
 
   export type OrcamentoItemCountOrderByAggregateInput = {
@@ -8632,6 +10195,9 @@ export namespace Prisma {
     item_id?: SortOrder
     quantidade?: SortOrder
     preco_unitario?: SortOrder
+    nome?: SortOrder
+    marca?: SortOrder
+    unidade_medida?: SortOrder
   }
 
   export type OrcamentoItemAvgOrderByAggregateInput = {
@@ -8648,6 +10214,9 @@ export namespace Prisma {
     item_id?: SortOrder
     quantidade?: SortOrder
     preco_unitario?: SortOrder
+    nome?: SortOrder
+    marca?: SortOrder
+    unidade_medida?: SortOrder
   }
 
   export type OrcamentoItemMinOrderByAggregateInput = {
@@ -8656,6 +10225,9 @@ export namespace Prisma {
     item_id?: SortOrder
     quantidade?: SortOrder
     preco_unitario?: SortOrder
+    nome?: SortOrder
+    marca?: SortOrder
+    unidade_medida?: SortOrder
   }
 
   export type OrcamentoItemSumOrderByAggregateInput = {
@@ -8664,6 +10236,55 @@ export namespace Prisma {
     item_id?: SortOrder
     quantidade?: SortOrder
     preco_unitario?: SortOrder
+  }
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type ServicoCountOrderByAggregateInput = {
+    id?: SortOrder
+    orcamento_id?: SortOrder
+    titulo?: SortOrder
+    preco?: SortOrder
+  }
+
+  export type ServicoAvgOrderByAggregateInput = {
+    id?: SortOrder
+    orcamento_id?: SortOrder
+    preco?: SortOrder
+  }
+
+  export type ServicoMaxOrderByAggregateInput = {
+    id?: SortOrder
+    orcamento_id?: SortOrder
+    titulo?: SortOrder
+    preco?: SortOrder
+  }
+
+  export type ServicoMinOrderByAggregateInput = {
+    id?: SortOrder
+    orcamento_id?: SortOrder
+    titulo?: SortOrder
+    preco?: SortOrder
+  }
+
+  export type ServicoSumOrderByAggregateInput = {
+    id?: SortOrder
+    orcamento_id?: SortOrder
+    preco?: SortOrder
   }
 
   export type OrcamentoCreateNestedManyWithoutUsuarioInput = {
@@ -8797,11 +10418,25 @@ export namespace Prisma {
     connect?: OrcamentoItemWhereUniqueInput | OrcamentoItemWhereUniqueInput[]
   }
 
+  export type ServicoCreateNestedManyWithoutOrcamentoInput = {
+    create?: XOR<ServicoCreateWithoutOrcamentoInput, ServicoUncheckedCreateWithoutOrcamentoInput> | ServicoCreateWithoutOrcamentoInput[] | ServicoUncheckedCreateWithoutOrcamentoInput[]
+    connectOrCreate?: ServicoCreateOrConnectWithoutOrcamentoInput | ServicoCreateOrConnectWithoutOrcamentoInput[]
+    createMany?: ServicoCreateManyOrcamentoInputEnvelope
+    connect?: ServicoWhereUniqueInput | ServicoWhereUniqueInput[]
+  }
+
   export type OrcamentoItemUncheckedCreateNestedManyWithoutOrcamentoInput = {
     create?: XOR<OrcamentoItemCreateWithoutOrcamentoInput, OrcamentoItemUncheckedCreateWithoutOrcamentoInput> | OrcamentoItemCreateWithoutOrcamentoInput[] | OrcamentoItemUncheckedCreateWithoutOrcamentoInput[]
     connectOrCreate?: OrcamentoItemCreateOrConnectWithoutOrcamentoInput | OrcamentoItemCreateOrConnectWithoutOrcamentoInput[]
     createMany?: OrcamentoItemCreateManyOrcamentoInputEnvelope
     connect?: OrcamentoItemWhereUniqueInput | OrcamentoItemWhereUniqueInput[]
+  }
+
+  export type ServicoUncheckedCreateNestedManyWithoutOrcamentoInput = {
+    create?: XOR<ServicoCreateWithoutOrcamentoInput, ServicoUncheckedCreateWithoutOrcamentoInput> | ServicoCreateWithoutOrcamentoInput[] | ServicoUncheckedCreateWithoutOrcamentoInput[]
+    connectOrCreate?: ServicoCreateOrConnectWithoutOrcamentoInput | ServicoCreateOrConnectWithoutOrcamentoInput[]
+    createMany?: ServicoCreateManyOrcamentoInputEnvelope
+    connect?: ServicoWhereUniqueInput | ServicoWhereUniqueInput[]
   }
 
   export type DecimalFieldUpdateOperationsInput = {
@@ -8846,6 +10481,20 @@ export namespace Prisma {
     deleteMany?: OrcamentoItemScalarWhereInput | OrcamentoItemScalarWhereInput[]
   }
 
+  export type ServicoUpdateManyWithoutOrcamentoNestedInput = {
+    create?: XOR<ServicoCreateWithoutOrcamentoInput, ServicoUncheckedCreateWithoutOrcamentoInput> | ServicoCreateWithoutOrcamentoInput[] | ServicoUncheckedCreateWithoutOrcamentoInput[]
+    connectOrCreate?: ServicoCreateOrConnectWithoutOrcamentoInput | ServicoCreateOrConnectWithoutOrcamentoInput[]
+    upsert?: ServicoUpsertWithWhereUniqueWithoutOrcamentoInput | ServicoUpsertWithWhereUniqueWithoutOrcamentoInput[]
+    createMany?: ServicoCreateManyOrcamentoInputEnvelope
+    set?: ServicoWhereUniqueInput | ServicoWhereUniqueInput[]
+    disconnect?: ServicoWhereUniqueInput | ServicoWhereUniqueInput[]
+    delete?: ServicoWhereUniqueInput | ServicoWhereUniqueInput[]
+    connect?: ServicoWhereUniqueInput | ServicoWhereUniqueInput[]
+    update?: ServicoUpdateWithWhereUniqueWithoutOrcamentoInput | ServicoUpdateWithWhereUniqueWithoutOrcamentoInput[]
+    updateMany?: ServicoUpdateManyWithWhereWithoutOrcamentoInput | ServicoUpdateManyWithWhereWithoutOrcamentoInput[]
+    deleteMany?: ServicoScalarWhereInput | ServicoScalarWhereInput[]
+  }
+
   export type OrcamentoItemUncheckedUpdateManyWithoutOrcamentoNestedInput = {
     create?: XOR<OrcamentoItemCreateWithoutOrcamentoInput, OrcamentoItemUncheckedCreateWithoutOrcamentoInput> | OrcamentoItemCreateWithoutOrcamentoInput[] | OrcamentoItemUncheckedCreateWithoutOrcamentoInput[]
     connectOrCreate?: OrcamentoItemCreateOrConnectWithoutOrcamentoInput | OrcamentoItemCreateOrConnectWithoutOrcamentoInput[]
@@ -8858,6 +10507,20 @@ export namespace Prisma {
     update?: OrcamentoItemUpdateWithWhereUniqueWithoutOrcamentoInput | OrcamentoItemUpdateWithWhereUniqueWithoutOrcamentoInput[]
     updateMany?: OrcamentoItemUpdateManyWithWhereWithoutOrcamentoInput | OrcamentoItemUpdateManyWithWhereWithoutOrcamentoInput[]
     deleteMany?: OrcamentoItemScalarWhereInput | OrcamentoItemScalarWhereInput[]
+  }
+
+  export type ServicoUncheckedUpdateManyWithoutOrcamentoNestedInput = {
+    create?: XOR<ServicoCreateWithoutOrcamentoInput, ServicoUncheckedCreateWithoutOrcamentoInput> | ServicoCreateWithoutOrcamentoInput[] | ServicoUncheckedCreateWithoutOrcamentoInput[]
+    connectOrCreate?: ServicoCreateOrConnectWithoutOrcamentoInput | ServicoCreateOrConnectWithoutOrcamentoInput[]
+    upsert?: ServicoUpsertWithWhereUniqueWithoutOrcamentoInput | ServicoUpsertWithWhereUniqueWithoutOrcamentoInput[]
+    createMany?: ServicoCreateManyOrcamentoInputEnvelope
+    set?: ServicoWhereUniqueInput | ServicoWhereUniqueInput[]
+    disconnect?: ServicoWhereUniqueInput | ServicoWhereUniqueInput[]
+    delete?: ServicoWhereUniqueInput | ServicoWhereUniqueInput[]
+    connect?: ServicoWhereUniqueInput | ServicoWhereUniqueInput[]
+    update?: ServicoUpdateWithWhereUniqueWithoutOrcamentoInput | ServicoUpdateWithWhereUniqueWithoutOrcamentoInput[]
+    updateMany?: ServicoUpdateManyWithWhereWithoutOrcamentoInput | ServicoUpdateManyWithWhereWithoutOrcamentoInput[]
+    deleteMany?: ServicoScalarWhereInput | ServicoScalarWhereInput[]
   }
 
   export type OrcamentoItemCreateNestedManyWithoutItemInput = {
@@ -8922,12 +10585,36 @@ export namespace Prisma {
     update?: XOR<XOR<OrcamentoUpdateToOneWithWhereWithoutItensInput, OrcamentoUpdateWithoutItensInput>, OrcamentoUncheckedUpdateWithoutItensInput>
   }
 
-  export type ItemUpdateOneRequiredWithoutOrcamentosNestedInput = {
+  export type ItemUpdateOneWithoutOrcamentosNestedInput = {
     create?: XOR<ItemCreateWithoutOrcamentosInput, ItemUncheckedCreateWithoutOrcamentosInput>
     connectOrCreate?: ItemCreateOrConnectWithoutOrcamentosInput
     upsert?: ItemUpsertWithoutOrcamentosInput
+    disconnect?: ItemWhereInput | boolean
+    delete?: ItemWhereInput | boolean
     connect?: ItemWhereUniqueInput
     update?: XOR<XOR<ItemUpdateToOneWithWhereWithoutOrcamentosInput, ItemUpdateWithoutOrcamentosInput>, ItemUncheckedUpdateWithoutOrcamentosInput>
+  }
+
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type OrcamentoCreateNestedOneWithoutServicosInput = {
+    create?: XOR<OrcamentoCreateWithoutServicosInput, OrcamentoUncheckedCreateWithoutServicosInput>
+    connectOrCreate?: OrcamentoCreateOrConnectWithoutServicosInput
+    connect?: OrcamentoWhereUniqueInput
+  }
+
+  export type OrcamentoUpdateOneRequiredWithoutServicosNestedInput = {
+    create?: XOR<OrcamentoCreateWithoutServicosInput, OrcamentoUncheckedCreateWithoutServicosInput>
+    connectOrCreate?: OrcamentoCreateOrConnectWithoutServicosInput
+    upsert?: OrcamentoUpsertWithoutServicosInput
+    connect?: OrcamentoWhereUniqueInput
+    update?: XOR<XOR<OrcamentoUpdateToOneWithWhereWithoutServicosInput, OrcamentoUpdateWithoutServicosInput>, OrcamentoUncheckedUpdateWithoutServicosInput>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -9144,6 +10831,33 @@ export namespace Prisma {
     _max?: NestedEnumStatusOrcamentoFilter<$PrismaModel>
   }
 
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
   export type OrcamentoCreateWithoutUsuarioInput = {
     nome: string
     preco_total: Decimal | DecimalJsLike | number | string
@@ -9151,10 +10865,13 @@ export namespace Prisma {
     data_validade: Date | string
     status?: $Enums.StatusOrcamento
     pdf_path?: string | null
+    meios_pagamento?: string | null
+    periodo_garantia?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     cliente: ClienteCreateNestedOneWithoutOrcamentosInput
     itens?: OrcamentoItemCreateNestedManyWithoutOrcamentoInput
+    servicos?: ServicoCreateNestedManyWithoutOrcamentoInput
   }
 
   export type OrcamentoUncheckedCreateWithoutUsuarioInput = {
@@ -9166,9 +10883,12 @@ export namespace Prisma {
     data_validade: Date | string
     status?: $Enums.StatusOrcamento
     pdf_path?: string | null
+    meios_pagamento?: string | null
+    periodo_garantia?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     itens?: OrcamentoItemUncheckedCreateNestedManyWithoutOrcamentoInput
+    servicos?: ServicoUncheckedCreateNestedManyWithoutOrcamentoInput
   }
 
   export type OrcamentoCreateOrConnectWithoutUsuarioInput = {
@@ -9210,6 +10930,8 @@ export namespace Prisma {
     data_validade?: DateTimeFilter<"Orcamento"> | Date | string
     status?: EnumStatusOrcamentoFilter<"Orcamento"> | $Enums.StatusOrcamento
     pdf_path?: StringNullableFilter<"Orcamento"> | string | null
+    meios_pagamento?: StringNullableFilter<"Orcamento"> | string | null
+    periodo_garantia?: StringNullableFilter<"Orcamento"> | string | null
     created_at?: DateTimeFilter<"Orcamento"> | Date | string
     updated_at?: DateTimeFilter<"Orcamento"> | Date | string
   }
@@ -9221,10 +10943,13 @@ export namespace Prisma {
     data_validade: Date | string
     status?: $Enums.StatusOrcamento
     pdf_path?: string | null
+    meios_pagamento?: string | null
+    periodo_garantia?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     usuario: UsuarioCreateNestedOneWithoutOrcamentosInput
     itens?: OrcamentoItemCreateNestedManyWithoutOrcamentoInput
+    servicos?: ServicoCreateNestedManyWithoutOrcamentoInput
   }
 
   export type OrcamentoUncheckedCreateWithoutClienteInput = {
@@ -9236,9 +10961,12 @@ export namespace Prisma {
     data_validade: Date | string
     status?: $Enums.StatusOrcamento
     pdf_path?: string | null
+    meios_pagamento?: string | null
+    periodo_garantia?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     itens?: OrcamentoItemUncheckedCreateNestedManyWithoutOrcamentoInput
+    servicos?: ServicoUncheckedCreateNestedManyWithoutOrcamentoInput
   }
 
   export type OrcamentoCreateOrConnectWithoutClienteInput = {
@@ -9274,6 +11002,7 @@ export namespace Prisma {
     tipo_cliente: $Enums.TipoCliente
     documento: string
     endereco?: string | null
+    cep?: string | null
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -9286,6 +11015,7 @@ export namespace Prisma {
     tipo_cliente: $Enums.TipoCliente
     documento: string
     endereco?: string | null
+    cep?: string | null
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -9302,6 +11032,8 @@ export namespace Prisma {
     senha: string
     tipo_usuario: $Enums.TipoUsuario
     documento: string
+    cep?: string | null
+    nome_empresa?: string | null
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -9314,6 +11046,8 @@ export namespace Prisma {
     senha: string
     tipo_usuario: $Enums.TipoUsuario
     documento: string
+    cep?: string | null
+    nome_empresa?: string | null
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -9326,14 +11060,20 @@ export namespace Prisma {
   export type OrcamentoItemCreateWithoutOrcamentoInput = {
     quantidade: Decimal | DecimalJsLike | number | string
     preco_unitario: Decimal | DecimalJsLike | number | string
-    item: ItemCreateNestedOneWithoutOrcamentosInput
+    nome?: string | null
+    marca?: string | null
+    unidade_medida?: string | null
+    item?: ItemCreateNestedOneWithoutOrcamentosInput
   }
 
   export type OrcamentoItemUncheckedCreateWithoutOrcamentoInput = {
     id?: number
-    item_id: number
+    item_id?: number | null
     quantidade: Decimal | DecimalJsLike | number | string
     preco_unitario: Decimal | DecimalJsLike | number | string
+    nome?: string | null
+    marca?: string | null
+    unidade_medida?: string | null
   }
 
   export type OrcamentoItemCreateOrConnectWithoutOrcamentoInput = {
@@ -9343,6 +11083,27 @@ export namespace Prisma {
 
   export type OrcamentoItemCreateManyOrcamentoInputEnvelope = {
     data: OrcamentoItemCreateManyOrcamentoInput | OrcamentoItemCreateManyOrcamentoInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ServicoCreateWithoutOrcamentoInput = {
+    titulo: string
+    preco: Decimal | DecimalJsLike | number | string
+  }
+
+  export type ServicoUncheckedCreateWithoutOrcamentoInput = {
+    id?: number
+    titulo: string
+    preco: Decimal | DecimalJsLike | number | string
+  }
+
+  export type ServicoCreateOrConnectWithoutOrcamentoInput = {
+    where: ServicoWhereUniqueInput
+    create: XOR<ServicoCreateWithoutOrcamentoInput, ServicoUncheckedCreateWithoutOrcamentoInput>
+  }
+
+  export type ServicoCreateManyOrcamentoInputEnvelope = {
+    data: ServicoCreateManyOrcamentoInput | ServicoCreateManyOrcamentoInput[]
     skipDuplicates?: boolean
   }
 
@@ -9364,6 +11125,7 @@ export namespace Prisma {
     tipo_cliente?: EnumTipoClienteFieldUpdateOperationsInput | $Enums.TipoCliente
     documento?: StringFieldUpdateOperationsInput | string
     endereco?: NullableStringFieldUpdateOperationsInput | string | null
+    cep?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -9376,6 +11138,7 @@ export namespace Prisma {
     tipo_cliente?: EnumTipoClienteFieldUpdateOperationsInput | $Enums.TipoCliente
     documento?: StringFieldUpdateOperationsInput | string
     endereco?: NullableStringFieldUpdateOperationsInput | string | null
+    cep?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -9398,6 +11161,8 @@ export namespace Prisma {
     senha?: StringFieldUpdateOperationsInput | string
     tipo_usuario?: EnumTipoUsuarioFieldUpdateOperationsInput | $Enums.TipoUsuario
     documento?: StringFieldUpdateOperationsInput | string
+    cep?: NullableStringFieldUpdateOperationsInput | string | null
+    nome_empresa?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -9410,6 +11175,8 @@ export namespace Prisma {
     senha?: StringFieldUpdateOperationsInput | string
     tipo_usuario?: EnumTipoUsuarioFieldUpdateOperationsInput | $Enums.TipoUsuario
     documento?: StringFieldUpdateOperationsInput | string
+    cep?: NullableStringFieldUpdateOperationsInput | string | null
+    nome_empresa?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -9436,14 +11203,46 @@ export namespace Prisma {
     NOT?: OrcamentoItemScalarWhereInput | OrcamentoItemScalarWhereInput[]
     id?: IntFilter<"OrcamentoItem"> | number
     orcamento_id?: IntFilter<"OrcamentoItem"> | number
-    item_id?: IntFilter<"OrcamentoItem"> | number
+    item_id?: IntNullableFilter<"OrcamentoItem"> | number | null
     quantidade?: DecimalFilter<"OrcamentoItem"> | Decimal | DecimalJsLike | number | string
     preco_unitario?: DecimalFilter<"OrcamentoItem"> | Decimal | DecimalJsLike | number | string
+    nome?: StringNullableFilter<"OrcamentoItem"> | string | null
+    marca?: StringNullableFilter<"OrcamentoItem"> | string | null
+    unidade_medida?: StringNullableFilter<"OrcamentoItem"> | string | null
+  }
+
+  export type ServicoUpsertWithWhereUniqueWithoutOrcamentoInput = {
+    where: ServicoWhereUniqueInput
+    update: XOR<ServicoUpdateWithoutOrcamentoInput, ServicoUncheckedUpdateWithoutOrcamentoInput>
+    create: XOR<ServicoCreateWithoutOrcamentoInput, ServicoUncheckedCreateWithoutOrcamentoInput>
+  }
+
+  export type ServicoUpdateWithWhereUniqueWithoutOrcamentoInput = {
+    where: ServicoWhereUniqueInput
+    data: XOR<ServicoUpdateWithoutOrcamentoInput, ServicoUncheckedUpdateWithoutOrcamentoInput>
+  }
+
+  export type ServicoUpdateManyWithWhereWithoutOrcamentoInput = {
+    where: ServicoScalarWhereInput
+    data: XOR<ServicoUpdateManyMutationInput, ServicoUncheckedUpdateManyWithoutOrcamentoInput>
+  }
+
+  export type ServicoScalarWhereInput = {
+    AND?: ServicoScalarWhereInput | ServicoScalarWhereInput[]
+    OR?: ServicoScalarWhereInput[]
+    NOT?: ServicoScalarWhereInput | ServicoScalarWhereInput[]
+    id?: IntFilter<"Servico"> | number
+    orcamento_id?: IntFilter<"Servico"> | number
+    titulo?: StringFilter<"Servico"> | string
+    preco?: DecimalFilter<"Servico"> | Decimal | DecimalJsLike | number | string
   }
 
   export type OrcamentoItemCreateWithoutItemInput = {
     quantidade: Decimal | DecimalJsLike | number | string
     preco_unitario: Decimal | DecimalJsLike | number | string
+    nome?: string | null
+    marca?: string | null
+    unidade_medida?: string | null
     orcamento: OrcamentoCreateNestedOneWithoutItensInput
   }
 
@@ -9452,6 +11251,9 @@ export namespace Prisma {
     orcamento_id: number
     quantidade: Decimal | DecimalJsLike | number | string
     preco_unitario: Decimal | DecimalJsLike | number | string
+    nome?: string | null
+    marca?: string | null
+    unidade_medida?: string | null
   }
 
   export type OrcamentoItemCreateOrConnectWithoutItemInput = {
@@ -9487,10 +11289,13 @@ export namespace Prisma {
     data_validade: Date | string
     status?: $Enums.StatusOrcamento
     pdf_path?: string | null
+    meios_pagamento?: string | null
+    periodo_garantia?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     cliente: ClienteCreateNestedOneWithoutOrcamentosInput
     usuario: UsuarioCreateNestedOneWithoutOrcamentosInput
+    servicos?: ServicoCreateNestedManyWithoutOrcamentoInput
   }
 
   export type OrcamentoUncheckedCreateWithoutItensInput = {
@@ -9503,8 +11308,11 @@ export namespace Prisma {
     data_validade: Date | string
     status?: $Enums.StatusOrcamento
     pdf_path?: string | null
+    meios_pagamento?: string | null
+    periodo_garantia?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    servicos?: ServicoUncheckedCreateNestedManyWithoutOrcamentoInput
   }
 
   export type OrcamentoCreateOrConnectWithoutItensInput = {
@@ -9517,7 +11325,6 @@ export namespace Prisma {
     marca?: string | null
     preco_unitario: Decimal | DecimalJsLike | number | string
     unidade_medida: string
-    descricao?: string | null
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -9528,7 +11335,6 @@ export namespace Prisma {
     marca?: string | null
     preco_unitario: Decimal | DecimalJsLike | number | string
     unidade_medida: string
-    descricao?: string | null
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -9556,10 +11362,13 @@ export namespace Prisma {
     data_validade?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumStatusOrcamentoFieldUpdateOperationsInput | $Enums.StatusOrcamento
     pdf_path?: NullableStringFieldUpdateOperationsInput | string | null
+    meios_pagamento?: NullableStringFieldUpdateOperationsInput | string | null
+    periodo_garantia?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     cliente?: ClienteUpdateOneRequiredWithoutOrcamentosNestedInput
     usuario?: UsuarioUpdateOneRequiredWithoutOrcamentosNestedInput
+    servicos?: ServicoUpdateManyWithoutOrcamentoNestedInput
   }
 
   export type OrcamentoUncheckedUpdateWithoutItensInput = {
@@ -9572,8 +11381,11 @@ export namespace Prisma {
     data_validade?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumStatusOrcamentoFieldUpdateOperationsInput | $Enums.StatusOrcamento
     pdf_path?: NullableStringFieldUpdateOperationsInput | string | null
+    meios_pagamento?: NullableStringFieldUpdateOperationsInput | string | null
+    periodo_garantia?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    servicos?: ServicoUncheckedUpdateManyWithoutOrcamentoNestedInput
   }
 
   export type ItemUpsertWithoutOrcamentosInput = {
@@ -9592,7 +11404,6 @@ export namespace Prisma {
     marca?: NullableStringFieldUpdateOperationsInput | string | null
     preco_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     unidade_medida?: StringFieldUpdateOperationsInput | string
-    descricao?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -9603,9 +11414,90 @@ export namespace Prisma {
     marca?: NullableStringFieldUpdateOperationsInput | string | null
     preco_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     unidade_medida?: StringFieldUpdateOperationsInput | string
-    descricao?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OrcamentoCreateWithoutServicosInput = {
+    nome: string
+    preco_total: Decimal | DecimalJsLike | number | string
+    data_inicial?: Date | string
+    data_validade: Date | string
+    status?: $Enums.StatusOrcamento
+    pdf_path?: string | null
+    meios_pagamento?: string | null
+    periodo_garantia?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    cliente: ClienteCreateNestedOneWithoutOrcamentosInput
+    usuario: UsuarioCreateNestedOneWithoutOrcamentosInput
+    itens?: OrcamentoItemCreateNestedManyWithoutOrcamentoInput
+  }
+
+  export type OrcamentoUncheckedCreateWithoutServicosInput = {
+    id?: number
+    nome: string
+    cliente_id: number
+    usuario_id: number
+    preco_total: Decimal | DecimalJsLike | number | string
+    data_inicial?: Date | string
+    data_validade: Date | string
+    status?: $Enums.StatusOrcamento
+    pdf_path?: string | null
+    meios_pagamento?: string | null
+    periodo_garantia?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    itens?: OrcamentoItemUncheckedCreateNestedManyWithoutOrcamentoInput
+  }
+
+  export type OrcamentoCreateOrConnectWithoutServicosInput = {
+    where: OrcamentoWhereUniqueInput
+    create: XOR<OrcamentoCreateWithoutServicosInput, OrcamentoUncheckedCreateWithoutServicosInput>
+  }
+
+  export type OrcamentoUpsertWithoutServicosInput = {
+    update: XOR<OrcamentoUpdateWithoutServicosInput, OrcamentoUncheckedUpdateWithoutServicosInput>
+    create: XOR<OrcamentoCreateWithoutServicosInput, OrcamentoUncheckedCreateWithoutServicosInput>
+    where?: OrcamentoWhereInput
+  }
+
+  export type OrcamentoUpdateToOneWithWhereWithoutServicosInput = {
+    where?: OrcamentoWhereInput
+    data: XOR<OrcamentoUpdateWithoutServicosInput, OrcamentoUncheckedUpdateWithoutServicosInput>
+  }
+
+  export type OrcamentoUpdateWithoutServicosInput = {
+    nome?: StringFieldUpdateOperationsInput | string
+    preco_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    data_inicial?: DateTimeFieldUpdateOperationsInput | Date | string
+    data_validade?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumStatusOrcamentoFieldUpdateOperationsInput | $Enums.StatusOrcamento
+    pdf_path?: NullableStringFieldUpdateOperationsInput | string | null
+    meios_pagamento?: NullableStringFieldUpdateOperationsInput | string | null
+    periodo_garantia?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    cliente?: ClienteUpdateOneRequiredWithoutOrcamentosNestedInput
+    usuario?: UsuarioUpdateOneRequiredWithoutOrcamentosNestedInput
+    itens?: OrcamentoItemUpdateManyWithoutOrcamentoNestedInput
+  }
+
+  export type OrcamentoUncheckedUpdateWithoutServicosInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    nome?: StringFieldUpdateOperationsInput | string
+    cliente_id?: IntFieldUpdateOperationsInput | number
+    usuario_id?: IntFieldUpdateOperationsInput | number
+    preco_total?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    data_inicial?: DateTimeFieldUpdateOperationsInput | Date | string
+    data_validade?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumStatusOrcamentoFieldUpdateOperationsInput | $Enums.StatusOrcamento
+    pdf_path?: NullableStringFieldUpdateOperationsInput | string | null
+    meios_pagamento?: NullableStringFieldUpdateOperationsInput | string | null
+    periodo_garantia?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    itens?: OrcamentoItemUncheckedUpdateManyWithoutOrcamentoNestedInput
   }
 
   export type OrcamentoCreateManyUsuarioInput = {
@@ -9617,6 +11509,8 @@ export namespace Prisma {
     data_validade: Date | string
     status?: $Enums.StatusOrcamento
     pdf_path?: string | null
+    meios_pagamento?: string | null
+    periodo_garantia?: string | null
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -9628,10 +11522,13 @@ export namespace Prisma {
     data_validade?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumStatusOrcamentoFieldUpdateOperationsInput | $Enums.StatusOrcamento
     pdf_path?: NullableStringFieldUpdateOperationsInput | string | null
+    meios_pagamento?: NullableStringFieldUpdateOperationsInput | string | null
+    periodo_garantia?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     cliente?: ClienteUpdateOneRequiredWithoutOrcamentosNestedInput
     itens?: OrcamentoItemUpdateManyWithoutOrcamentoNestedInput
+    servicos?: ServicoUpdateManyWithoutOrcamentoNestedInput
   }
 
   export type OrcamentoUncheckedUpdateWithoutUsuarioInput = {
@@ -9643,9 +11540,12 @@ export namespace Prisma {
     data_validade?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumStatusOrcamentoFieldUpdateOperationsInput | $Enums.StatusOrcamento
     pdf_path?: NullableStringFieldUpdateOperationsInput | string | null
+    meios_pagamento?: NullableStringFieldUpdateOperationsInput | string | null
+    periodo_garantia?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     itens?: OrcamentoItemUncheckedUpdateManyWithoutOrcamentoNestedInput
+    servicos?: ServicoUncheckedUpdateManyWithoutOrcamentoNestedInput
   }
 
   export type OrcamentoUncheckedUpdateManyWithoutUsuarioInput = {
@@ -9657,6 +11557,8 @@ export namespace Prisma {
     data_validade?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumStatusOrcamentoFieldUpdateOperationsInput | $Enums.StatusOrcamento
     pdf_path?: NullableStringFieldUpdateOperationsInput | string | null
+    meios_pagamento?: NullableStringFieldUpdateOperationsInput | string | null
+    periodo_garantia?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -9670,6 +11572,8 @@ export namespace Prisma {
     data_validade: Date | string
     status?: $Enums.StatusOrcamento
     pdf_path?: string | null
+    meios_pagamento?: string | null
+    periodo_garantia?: string | null
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -9681,10 +11585,13 @@ export namespace Prisma {
     data_validade?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumStatusOrcamentoFieldUpdateOperationsInput | $Enums.StatusOrcamento
     pdf_path?: NullableStringFieldUpdateOperationsInput | string | null
+    meios_pagamento?: NullableStringFieldUpdateOperationsInput | string | null
+    periodo_garantia?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     usuario?: UsuarioUpdateOneRequiredWithoutOrcamentosNestedInput
     itens?: OrcamentoItemUpdateManyWithoutOrcamentoNestedInput
+    servicos?: ServicoUpdateManyWithoutOrcamentoNestedInput
   }
 
   export type OrcamentoUncheckedUpdateWithoutClienteInput = {
@@ -9696,9 +11603,12 @@ export namespace Prisma {
     data_validade?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumStatusOrcamentoFieldUpdateOperationsInput | $Enums.StatusOrcamento
     pdf_path?: NullableStringFieldUpdateOperationsInput | string | null
+    meios_pagamento?: NullableStringFieldUpdateOperationsInput | string | null
+    periodo_garantia?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     itens?: OrcamentoItemUncheckedUpdateManyWithoutOrcamentoNestedInput
+    servicos?: ServicoUncheckedUpdateManyWithoutOrcamentoNestedInput
   }
 
   export type OrcamentoUncheckedUpdateManyWithoutClienteInput = {
@@ -9710,35 +11620,72 @@ export namespace Prisma {
     data_validade?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumStatusOrcamentoFieldUpdateOperationsInput | $Enums.StatusOrcamento
     pdf_path?: NullableStringFieldUpdateOperationsInput | string | null
+    meios_pagamento?: NullableStringFieldUpdateOperationsInput | string | null
+    periodo_garantia?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type OrcamentoItemCreateManyOrcamentoInput = {
     id?: number
-    item_id: number
+    item_id?: number | null
     quantidade: Decimal | DecimalJsLike | number | string
     preco_unitario: Decimal | DecimalJsLike | number | string
+    nome?: string | null
+    marca?: string | null
+    unidade_medida?: string | null
+  }
+
+  export type ServicoCreateManyOrcamentoInput = {
+    id?: number
+    titulo: string
+    preco: Decimal | DecimalJsLike | number | string
   }
 
   export type OrcamentoItemUpdateWithoutOrcamentoInput = {
     quantidade?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     preco_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    item?: ItemUpdateOneRequiredWithoutOrcamentosNestedInput
+    nome?: NullableStringFieldUpdateOperationsInput | string | null
+    marca?: NullableStringFieldUpdateOperationsInput | string | null
+    unidade_medida?: NullableStringFieldUpdateOperationsInput | string | null
+    item?: ItemUpdateOneWithoutOrcamentosNestedInput
   }
 
   export type OrcamentoItemUncheckedUpdateWithoutOrcamentoInput = {
     id?: IntFieldUpdateOperationsInput | number
-    item_id?: IntFieldUpdateOperationsInput | number
+    item_id?: NullableIntFieldUpdateOperationsInput | number | null
     quantidade?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     preco_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    nome?: NullableStringFieldUpdateOperationsInput | string | null
+    marca?: NullableStringFieldUpdateOperationsInput | string | null
+    unidade_medida?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type OrcamentoItemUncheckedUpdateManyWithoutOrcamentoInput = {
     id?: IntFieldUpdateOperationsInput | number
-    item_id?: IntFieldUpdateOperationsInput | number
+    item_id?: NullableIntFieldUpdateOperationsInput | number | null
     quantidade?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     preco_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    nome?: NullableStringFieldUpdateOperationsInput | string | null
+    marca?: NullableStringFieldUpdateOperationsInput | string | null
+    unidade_medida?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ServicoUpdateWithoutOrcamentoInput = {
+    titulo?: StringFieldUpdateOperationsInput | string
+    preco?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+  }
+
+  export type ServicoUncheckedUpdateWithoutOrcamentoInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    titulo?: StringFieldUpdateOperationsInput | string
+    preco?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+  }
+
+  export type ServicoUncheckedUpdateManyWithoutOrcamentoInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    titulo?: StringFieldUpdateOperationsInput | string
+    preco?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
   }
 
   export type OrcamentoItemCreateManyItemInput = {
@@ -9746,11 +11693,17 @@ export namespace Prisma {
     orcamento_id: number
     quantidade: Decimal | DecimalJsLike | number | string
     preco_unitario: Decimal | DecimalJsLike | number | string
+    nome?: string | null
+    marca?: string | null
+    unidade_medida?: string | null
   }
 
   export type OrcamentoItemUpdateWithoutItemInput = {
     quantidade?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     preco_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    nome?: NullableStringFieldUpdateOperationsInput | string | null
+    marca?: NullableStringFieldUpdateOperationsInput | string | null
+    unidade_medida?: NullableStringFieldUpdateOperationsInput | string | null
     orcamento?: OrcamentoUpdateOneRequiredWithoutItensNestedInput
   }
 
@@ -9759,6 +11712,9 @@ export namespace Prisma {
     orcamento_id?: IntFieldUpdateOperationsInput | number
     quantidade?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     preco_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    nome?: NullableStringFieldUpdateOperationsInput | string | null
+    marca?: NullableStringFieldUpdateOperationsInput | string | null
+    unidade_medida?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type OrcamentoItemUncheckedUpdateManyWithoutItemInput = {
@@ -9766,6 +11722,9 @@ export namespace Prisma {
     orcamento_id?: IntFieldUpdateOperationsInput | number
     quantidade?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     preco_unitario?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    nome?: NullableStringFieldUpdateOperationsInput | string | null
+    marca?: NullableStringFieldUpdateOperationsInput | string | null
+    unidade_medida?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
 

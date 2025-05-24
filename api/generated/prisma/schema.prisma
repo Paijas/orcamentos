@@ -32,6 +32,8 @@ model Usuario {
   senha        String
   tipo_usuario TipoUsuario
   documento    String      @unique
+  cep          String? // Opcional, conforme solicitado
+  nome_empresa String? // Opcional, validado no backend para PJ
   created_at   DateTime    @default(now())
   updated_at   DateTime    @default(now())
   orcamentos   Orcamento[]
@@ -45,26 +47,31 @@ model Cliente {
   tipo_cliente TipoCliente
   documento    String      @unique
   endereco     String?
+  cep          String? // Opcional, conforme solicitado
   created_at   DateTime    @default(now())
   updated_at   DateTime    @default(now())
   orcamentos   Orcamento[]
 }
 
 model Orcamento {
-  id            Int             @id @default(autoincrement())
-  nome          String
-  cliente_id    Int
-  usuario_id    Int
-  preco_total   Decimal
-  data_inicial  DateTime        @default(now())
-  data_validade DateTime
-  status        StatusOrcamento @default(Pendente)
-  pdf_path      String?
-  created_at    DateTime        @default(now())
-  updated_at    DateTime        @default(now())
-  cliente       Cliente         @relation(fields: [cliente_id], references: [id])
-  usuario       Usuario         @relation(fields: [usuario_id], references: [id])
-  itens         OrcamentoItem[]
+  id              Int             @id @default(autoincrement())
+  nome            String
+  cliente_id      Int
+  usuario_id      Int
+  preco_total     Decimal
+  data_inicial    DateTime        @default(now())
+  data_validade   DateTime
+  status          StatusOrcamento @default(Pendente)
+  pdf_path        String?
+  meios_pagamento String? // Opcional, para meios de pagamento
+
+  periodo_garantia String? // Opcional, para período de garantia
+  created_at       DateTime        @default(now())
+  updated_at       DateTime        @default(now())
+  cliente          Cliente         @relation(fields: [cliente_id], references: [id], onDelete: Restrict)
+  usuario          Usuario         @relation(fields: [usuario_id], references: [id], onDelete: Restrict)
+  itens            OrcamentoItem[]
+  servicos         Servico[] // Relacionamento com a tabela Servico
 }
 
 model Item {
@@ -73,19 +80,28 @@ model Item {
   marca          String?
   preco_unitario Decimal
   unidade_medida String
-  descricao      String?
   created_at     DateTime        @default(now())
   updated_at     DateTime        @default(now())
   orcamentos     OrcamentoItem[]
 }
 
 model OrcamentoItem {
-  id             Int     @id @default(autoincrement())
+  id             Int       @id @default(autoincrement())
   orcamento_id   Int
-  item_id        Int
+  item_id        Int? // Opcional, para itens livres
   quantidade     Decimal
   preco_unitario Decimal
+  nome           String? // Para itens livres
+  marca          String? // Para itens livres
+  unidade_medida String? // Para itens livres
+  orcamento      Orcamento @relation(fields: [orcamento_id], references: [id], onDelete: Cascade)
+  item           Item?     @relation(fields: [item_id], references: [id], onDelete: Restrict)
+}
 
-  orcamento Orcamento @relation(fields: [orcamento_id], references: [id])
-  item      Item      @relation(fields: [item_id], references: [id])
+model Servico {
+  id           Int       @id @default(autoincrement())
+  orcamento_id Int
+  titulo       String
+  preco        Decimal
+  orcamento    Orcamento @relation(fields: [orcamento_id], references: [id], onDelete: Cascade)
 }
