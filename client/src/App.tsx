@@ -8,6 +8,7 @@ import Orcamentos from "./pages/orcamentos/orcamentos";
 import Clientes from "./pages/clientes/clientes";
 import NovoCliente from "./pages/clientes/novoCliente";
 import VisualizarCliente from "./pages/clientes/selectCliente";
+import EditarCliente from "./pages/clientes/editarCliente";
 import PrivateRoute from "./components/privateRouter";
 
 function App() {
@@ -54,6 +55,15 @@ function App() {
             element={
               // <PrivateRoute>
               <VisualizarCliente />
+              //</PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/clientes/editar/:id"
+            element={
+              // <PrivateRoute>
+              <EditarCliente />
               //</PrivateRoute>
             }
           />

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
 import { Button } from "@/components/ui/button";
@@ -27,7 +27,7 @@ export default function SelectCliente() {
   const { id } = useParams<{ id: string }>();
   const [cliente, setCliente] = useState<Cliente | null>(null);
   const [orcamentos, setOrcamentos] = useState<Orcamento[]>([]);
-
+  const navigate = useNavigate();
   const fetchCliente = async () => {
     try {
       const response = await AxiosInstance.get(`/api/clientes/${id}`);
@@ -51,11 +51,19 @@ export default function SelectCliente() {
     fetchOrcamentos();
   }, [id]);
 
+  const handleDeletarCliente = async () => {
+    try {
+      const response = await AxiosInstance.delete(`/api/clientes/${id}`);
+      alert("Cliente deletado com sucesso");
+    } catch (error) {
+      console.log("Erro ao tentar deletar cliente.");
+    }
+  };
+
   return (
     <SidebarProvider>
       <AppSidebar />
       <main className="w-full min-h-screen bg-zinc-100 pb-24">
-        {/* TopBar */}
         <nav className="w-full h-16 bg-blue-950 flex items-center justify-between shadow-md px-4">
           <div className="flex items-center gap-4">
             <SidebarTrigger className="text-white text-4xl" />
@@ -63,7 +71,6 @@ export default function SelectCliente() {
           </div>
         </nav>
 
-        {/* Dados do cliente */}
         <div className="px-4 py-4">
           {cliente ? (
             <div className="bg-white rounded-lg p-4 shadow border border-slate-200 space-y-1">
@@ -80,6 +87,7 @@ export default function SelectCliente() {
               <p className="text-sm text-slate-600">
                 Documento: {cliente.documento}
               </p>
+              <p className="text-sm text-slate-600">CEP: {cliente?.cep}</p>
               <p className="text-sm text-slate-600">
                 Endereço: {cliente.endereco}
               </p>
@@ -89,7 +97,21 @@ export default function SelectCliente() {
           )}
         </div>
 
-        {/* Lista de Orçamentos */}
+        <div className="w-full flex flex-row gap-4 px-4">
+          <button
+            onClick={() => navigate(`/clientes/editar/${id}`)}
+            className=" text-center  items-center text-blue-600 font-semibold flex-1 py-3 bg-white border border-slate rounded shadow"
+          >
+            Editar
+          </button>
+          <button
+            onClick={() => handleDeletarCliente()}
+            className=" text-center  items-center text-red-600 font-semibold flex-1 py-3 bg-white border border-slate rounded shadow"
+          >
+            Deletar
+          </button>
+        </div>
+
         <div className="px-4 py-2">
           <h3 className="text-base font-semibold text-slate-700 mb-2">
             Orçamentos

@@ -50,13 +50,11 @@ export default function Clientes() {
     <SidebarProvider>
       <AppSidebar />
       <main className="w-full min-h-screen bg-zinc-100 pb-24">
-        {/* TopBar */}
         <nav className="w-full h-16 bg-blue-950 flex items-center shadow-md px-4 gap-4">
           <SidebarTrigger className="text-white text-4xl" />
           <h1 className="text-white text-lg font-semibold">Clientes</h1>
         </nav>
 
-        {/* Filtros e Busca */}
         <div className="px-4 py-4 space-y-4">
           <div className="flex flex-col sm:flex-row gap-2">
             <input
@@ -77,7 +75,6 @@ export default function Clientes() {
             </select>
           </div>
 
-          {/* Lista de clientes */}
           <div className="space-y-3">
             {filteredClientes.length > 0 ? (
               filteredClientes.map((cliente) => (
@@ -100,7 +97,6 @@ export default function Clientes() {
           </div>
         </div>
 
-        {/* Botão flutuante */}
         <div className="fixed bottom-4 right-4 left-4 px-4">
           <Button
             onClick={() => navigate("/clientes/novo")}
