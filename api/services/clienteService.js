@@ -55,15 +55,39 @@ const updateCliente = async (id, data) => {
   });
 };
 
-const deleteCliente = async (id) => {
+const deleteCliente = async (clienteId) => {
+  // Verifica se o cliente existe
   const cliente = await prisma.cliente.findUnique({
-    where: { id: parseInt(id) },
+    where: { id: clienteId },
+    include: { orcamentos: true },
   });
+
   if (!cliente) {
-    throw new Error("Cliente não encontrado para exclusão");
+    throw new Error("Cliente não encontrado");
   }
 
-  return await prisma.cliente.delete({ where: { id: parseInt(id) } });
+  // Deleta itens e serviços relacionados a cada orçamento
+  for (const orcamento of cliente.orcamentos) {
+    await prisma.orcamentoItem.deleteMany({
+      where: { orcamento_id: orcamento.id },
+    });
+
+    await prisma.servico.deleteMany({
+      where: { orcamento_id: orcamento.id },
+    });
+  }
+
+  // Deleta orçamentos
+  await prisma.orcamento.deleteMany({
+    where: { cliente_id: clienteId },
+  });
+
+  // Deleta o cliente
+  await prisma.cliente.delete({
+    where: { id: clienteId },
+  });
+
+  return { message: "Cliente e orçamentos deletados com sucesso" };
 };
 
 module.exports = {

@@ -213,7 +213,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "D:\\VSCODE\\orcamentos\\api\\generated\\prisma",
+      "value": "C:\\Users\\Matheus Paigel\\Documents\\GitHub\\orcamentos\\api\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -227,7 +227,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "D:\\VSCODE\\orcamentos\\api\\prisma\\schema.prisma",
+    "sourceFilePath": "C:\\Users\\Matheus Paigel\\Documents\\GitHub\\orcamentos\\api\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {

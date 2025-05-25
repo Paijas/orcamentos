@@ -43,11 +43,17 @@ module.exports = {
   },
 
   async delete(req, res) {
+    const clienteId = Number(req.params.id);
+
+    if (isNaN(clienteId)) {
+      return res.status(400).json({ error: "ID inválido" });
+    }
+
     try {
-      await clienteService.deleteCliente(req.params.id);
-      res.status(204).send();
+      const resultado = await clienteService.deleteCliente(clienteId);
+      res.json(resultado);
     } catch (error) {
-      res.status(400).json({ error: error.message });
+      res.status(500).json({ error: error.message });
     }
   },
 };
