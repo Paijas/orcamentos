@@ -43,7 +43,7 @@ export default function Home() {
             <div className=" flex flex-row gap-4 mt-4">
               <Option page="/orcamentos" label="Orçamentos" />
               <Option page="/clientes" label="Clientes" />
-              <Option page="/" label="Items" />
+              <Option page="/itens" label="Items" />
             </div>
           </div>
 

@@ -241,6 +241,23 @@ const deleteOrcamento = async (id) => {
   });
 };
 
+const getAllOrcamentos = async () => {
+  const orcamentos = await prisma.orcamento.findMany({
+    include: {
+      itens: true,
+      servicos: true,
+      cliente: true,
+      usuario: true,
+    },
+  });
+
+  if (!orcamentos) {
+    throw new Error("Orçamentos não encontrado");
+  }
+
+  return orcamentos;
+};
+
 const getOrcamentoById = async (id) => {
   const orcamento = await prisma.orcamento.findUnique({
     where: { id },
@@ -288,4 +305,5 @@ module.exports = {
   deleteOrcamento,
   getOrcamentoById,
   getOrcamentosByClienteId,
+  getAllOrcamentos,
 };

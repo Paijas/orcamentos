@@ -9,7 +9,11 @@ import Clientes from "./pages/clientes/clientes";
 import NovoCliente from "./pages/clientes/novoCliente";
 import VisualizarCliente from "./pages/clientes/selectCliente";
 import EditarCliente from "./pages/clientes/editarCliente";
+import Itens from "./pages/itens/itens";
+import VisualizarItem from "./pages/itens/selectItem";
+import NovoItem from "./pages/itens/novoItem";
 import PrivateRoute from "./components/privateRouter";
+import NovoOrcamento from "./pages/orcamentos/novoOrcamento";
 
 function App() {
   return (
@@ -64,6 +68,39 @@ function App() {
             element={
               // <PrivateRoute>
               <EditarCliente />
+              //</PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/itens"
+            element={
+              // <PrivateRoute>
+              <Itens />
+              //</PrivateRoute>
+            }
+          />
+          <Route
+            path="/itens/novo"
+            element={
+              // <PrivateRoute>
+              <NovoItem />
+              //</PrivateRoute>
+            }
+          />
+          <Route
+            path="/itens/:id"
+            element={
+              // <PrivateRoute>
+              <VisualizarItem />
+              //</PrivateRoute>
+            }
+          />
+          <Route
+            path="/orcamentos/novo"
+            element={
+              // <PrivateRoute>
+              <NovoOrcamento />
               //</PrivateRoute>
             }
           />

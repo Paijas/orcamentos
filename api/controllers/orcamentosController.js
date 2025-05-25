@@ -85,10 +85,20 @@ const getOrcamentosByClienteId = async (req, res) => {
   }
 };
 
+const getAllOrcamentos = async (req, res) => {
+  try {
+    const orcamentos = await OrcamentoServices.getAllOrcamentos();
+    res.status(200).json(orcamentos);
+  } catch (error) {
+    console.log("Erro no Controller");
+  }
+};
+
 module.exports = {
   createOrcamento,
   updateOrcamento,
   deleteOrcamento,
   getOrcamentoById,
   getOrcamentosByClienteId,
+  getAllOrcamentos,
 };
