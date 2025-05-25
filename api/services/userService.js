@@ -77,8 +77,6 @@ const updateUsuario = async (id, data) => {
   });
 };
 
-module.exports = { updateUsuario };
-
 module.exports = {
   createUser,
   getAllUsers,

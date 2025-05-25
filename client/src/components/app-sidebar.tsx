@@ -19,17 +19,17 @@ import { NavUser } from "./nav-user";
 const items = [
   {
     title: "Home",
-    url: "#",
+    url: "/home",
     icon: Home,
   },
   {
     title: "Orçamentos",
-    url: "#",
+    url: "/orcamentos",
     icon: ScrollText,
   },
   {
     title: "Clientes",
-    url: "#",
+    url: "/clientes",
     icon: UsersRound,
   },
   {
