@@ -117,14 +117,14 @@ export default function SelectItem() {
                   placeholder="Nome"
                   value={form.nome}
                   onChange={(e) => setForm({ ...form, nome: e.target.value })}
-                  className="w-full border px-3 py-2 rounded py-3"
+                  className="w-full border px-3  rounded py-3"
                 />
                 <input
                   type="text"
                   placeholder="Marca"
                   value={form.marca}
                   onChange={(e) => setForm({ ...form, marca: e.target.value })}
-                  className="w-full border px-3 py-2 rounded py-3"
+                  className="w-full border px-3  rounded py-3"
                 />
                 <input
                   type="number"
@@ -133,7 +133,7 @@ export default function SelectItem() {
                   onChange={(e) =>
                     setForm({ ...form, preco_unitario: e.target.value })
                   }
-                  className="w-full border px-3 py-2 rounded py-3"
+                  className="w-full border px-3  rounded py-3"
                 />
                 <input
                   type="text"
@@ -142,11 +142,11 @@ export default function SelectItem() {
                   onChange={(e) =>
                     setForm({ ...form, unidade_medida: e.target.value })
                   }
-                  className="w-full border px-3 py-2 rounded py-3"
+                  className="w-full border px-3  rounded py-3"
                 />
 
                 <Button
-                  className="w-full bg-blue-900 text-white mt-2 py-6 mt-10"
+                  className="w-full bg-blue-900 text-white  py-6 mt-10"
                   onClick={handleAtualizarItem}
                 >
                   Salvar

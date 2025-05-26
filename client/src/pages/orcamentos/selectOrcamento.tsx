@@ -15,6 +15,13 @@ type Cliente = {
   cep?: string | null;
 };
 
+const statusClasses = {
+  Aprovado: "text-green-500",
+  Negado: "text-red-500",
+  Vencido: "text-red-500",
+  Pendente: "text-yellow-500",
+};
+
 type Usuario = {
   id: number;
   nome: string;
@@ -50,6 +57,7 @@ type Orcamento = {
   usuario: Usuario;
   itens: Item[];
   servicos: Servico[];
+  updated_at: string;
 };
 
 export default function VisualizarOrcamento() {
@@ -96,17 +104,28 @@ export default function VisualizarOrcamento() {
             <p className="text-[14px] mt-6 font-semibold text-blue-800">
               Total: R$ {orcamento?.preco_total}
             </p>
-            <p className="text-[14px]  text-blue-900 font-semibold tracking-wider">
-              Status: {orcamento?.status}
+            <p
+              className={`text-[14px] flex flex-row gap-2  text-blue-900 font-semibold tracking-wider`}
+            >
+              Status:
+              <p
+                className={`${
+                  orcamento?.status === "Aprovado" ? "text-green-500" : ""
+                } ${orcamento?.status === "Negado" ? "text-red-500" : ""} ${
+                  orcamento?.status === "Pendente" ? "text-yellow-500" : ""
+                }`}
+              >
+                {orcamento?.status}
+              </p>
             </p>
           </div>
 
           <div className="w-full flex flex-row gap-4 ">
             <button
-              onClick={() => ""}
+              onClick={() => navigate(`/orcamentos/editar/${id}`)}
               className=" text-center  items-center text-blue-600 font-semibold flex-1 py-2 bg-white border border-slate rounded shadow"
             >
-              Compartilhar
+              Editar
             </button>
             <button
               onClick={() => deleteOrcamento()}
@@ -166,13 +185,20 @@ export default function VisualizarOrcamento() {
             {orcamento?.itens.length ? (
               <ul className="divide-y divide-slate-100 text-sm text-slate-700">
                 {orcamento.itens.map((item) => (
-                  <li key={item.id} className="py-2">
-                    <span className="block font-medium">{item.nome}</span>
-                    <span className="block text-xs text-slate-600">
-                      {item.quantidade} {item.unidade_medida}
-                    </span>
-                    <span className="block text-xs text-blue-800">
-                      R$ {item.preco_unitario}
+                  <li
+                    key={item.id}
+                    className="py-2 flex flex-row justify-between items-center"
+                  >
+                    <div className="flex flex-col">
+                      <span className="block font-medium">{item.nome}</span>
+                      <span className="block text-xs text-slate-600">
+                        {item.quantidade} unidade(s)
+                      </span>
+                    </div>
+                    <span className="block text-md font-semibold text-blue-800">
+                      R${" "}
+                      {parseFloat(item.preco_unitario) *
+                        parseInt(item.quantidade)}
                     </span>
                   </li>
                 ))}

@@ -114,6 +114,14 @@ function App() {
               //</PrivateRoute>
             }
           />
+          <Route
+            path="/orcamentos/editar/:id"
+            element={
+              // <PrivateRoute>
+              <EditarOrcamento />
+              //</PrivateRoute>
+            }
+          />
         </Routes>
 
         <PWABadge />
