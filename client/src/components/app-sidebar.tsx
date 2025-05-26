@@ -34,7 +34,7 @@ const items = [
   },
   {
     title: "Itens Recorrentes",
-    url: "#",
+    url: "/itens",
     icon: ListTodo,
   },
 ];

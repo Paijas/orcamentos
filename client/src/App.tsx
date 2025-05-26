@@ -14,7 +14,8 @@ import VisualizarItem from "./pages/itens/selectItem";
 import NovoItem from "./pages/itens/novoItem";
 import PrivateRoute from "./components/privateRouter";
 import NovoOrcamento from "./pages/orcamentos/novoOrcamento";
-
+import VisualizarOrcamento from "./pages/orcamentos/selectOrcamento";
+import EditarOrcamento from "./pages/orcamentos/editarOrcamento";
 function App() {
   return (
     <Router>
@@ -38,6 +39,7 @@ function App() {
               //</PrivateRoute>
             }
           />
+
           <Route
             path="/clientes"
             element={
@@ -101,6 +103,14 @@ function App() {
             element={
               // <PrivateRoute>
               <NovoOrcamento />
+              //</PrivateRoute>
+            }
+          />
+          <Route
+            path="/orcamentos/:id"
+            element={
+              // <PrivateRoute>
+              <VisualizarOrcamento />
               //</PrivateRoute>
             }
           />

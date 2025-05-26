@@ -30,7 +30,6 @@ export default function NovoOrcamento() {
     preco_unitario: "",
     quantidade: "",
     unidade_medida: "",
-    descricao: "",
   });
 
   const [novoServico, setNovoServico] = useState({
@@ -78,8 +77,32 @@ export default function NovoOrcamento() {
   };
 
   const handleSubmit = async () => {
-    await AxiosInstance.post("/api/orcamentos", orcamento);
+    const totalServicos = orcamento.servicos.reduce(
+      (acc, servico) => acc + parseFloat(servico.preco || 0),
+      0
+    );
+
+    const payload = {
+      ...orcamento,
+      preco_total: totalServicos.toFixed(2),
+    };
+
+    await AxiosInstance.post("/api/orcamentos", payload);
     navigate("/orcamentos");
+  };
+
+  const removerItem = (index: any) => {
+    setOrcamento((prev) => ({
+      ...prev,
+      itens: prev.itens.filter((_, i) => i !== index),
+    }));
+  };
+
+  const removerServico = (index: any) => {
+    setOrcamento((prev) => ({
+      ...prev,
+      servicos: prev.servicos.filter((_, i) => i !== index),
+    }));
   };
 
   return (
@@ -91,10 +114,11 @@ export default function NovoOrcamento() {
           <h1 className="text-white text-lg font-semibold">Novo Orçamento</h1>
         </nav>
 
-        <div className="px-4 py-6 space-y-8">
+        <form className="px-4 py-6 space-y-8">
           <div className="space-y-3">
             <input
               type="text"
+              required
               placeholder="Nome do orçamento"
               value={orcamento.nome}
               onChange={(e) =>
@@ -104,6 +128,7 @@ export default function NovoOrcamento() {
             />
             <select
               value={orcamento.cliente_id}
+              required
               onChange={(e) =>
                 setOrcamento((prev) => ({
                   ...prev,
@@ -121,6 +146,7 @@ export default function NovoOrcamento() {
             </select>
             <input
               type="date"
+              required
               value={orcamento.data_validade}
               onChange={(e) =>
                 setOrcamento((prev) => ({
@@ -174,7 +200,7 @@ export default function NovoOrcamento() {
                   }));
                 }
               }}
-              className="w-full border border-slate-300 rounded-lg py-2 px-3 text-sm"
+              className="w-full border border-slate-300 rounded-lg py-3 px-3 text-sm"
             >
               <option value="">Selecionar item recorrente</option>
               {itensRecorrentes.map((item) => (
@@ -189,10 +215,11 @@ export default function NovoOrcamento() {
                 type="text"
                 placeholder="Nome"
                 value={novoItem.nome}
+                required
                 onChange={(e) =>
                   setNovoItem((prev) => ({ ...prev, nome: e.target.value }))
                 }
-                className="border border-slate-300 rounded-lg py-2 px-3 text-sm"
+                className="border border-slate-300 rounded-lg py-3 px-3 text-sm"
               />
               <input
                 type="text"
@@ -201,10 +228,11 @@ export default function NovoOrcamento() {
                 onChange={(e) =>
                   setNovoItem((prev) => ({ ...prev, marca: e.target.value }))
                 }
-                className="border border-slate-300 rounded-lg py-2 px-3 text-sm"
+                className="border border-slate-300 rounded-lg py-3 px-3 text-sm"
               />
               <input
                 type="number"
+                required
                 placeholder="Preço Unitário"
                 value={novoItem.preco_unitario}
                 onChange={(e) =>
@@ -213,11 +241,12 @@ export default function NovoOrcamento() {
                     preco_unitario: e.target.value,
                   }))
                 }
-                className="border border-slate-300 rounded-lg py-2 px-3 text-sm"
+                className="border border-slate-300 rounded-lg py-3 px-3 text-sm"
               />
               <input
                 type="number"
                 placeholder="Quantidade"
+                required
                 value={novoItem.quantidade}
                 onChange={(e) =>
                   setNovoItem((prev) => ({
@@ -225,33 +254,21 @@ export default function NovoOrcamento() {
                     quantidade: e.target.value,
                   }))
                 }
-                className="border border-slate-300 rounded-lg py-2 px-3 text-sm"
-              />
-              <input
-                type="text"
-                placeholder="Unidade de Medida"
-                value={novoItem.unidade_medida}
-                onChange={(e) =>
-                  setNovoItem((prev) => ({
-                    ...prev,
-                    unidade_medida: e.target.value,
-                  }))
-                }
-                className="border border-slate-300 rounded-lg py-2 px-3 text-sm"
-              />
-              <input
-                type="text"
-                placeholder="Descrição"
-                value={novoItem.descricao}
-                onChange={(e) =>
-                  setNovoItem((prev) => ({
-                    ...prev,
-                    descricao: e.target.value,
-                  }))
-                }
-                className="col-span-2 border border-slate-300 rounded-lg py-2 px-3 text-sm"
+                className="border border-slate-300 rounded-lg py-3 px-3 text-sm"
               />
             </div>
+            <input
+              type="text"
+              placeholder="Unidade de Medida"
+              value={novoItem.unidade_medida}
+              onChange={(e) =>
+                setNovoItem((prev) => ({
+                  ...prev,
+                  unidade_medida: e.target.value,
+                }))
+              }
+              className="border border-slate-300 rounded-lg py-3 px-3 text-sm w-full"
+            />
 
             <Button
               onClick={adicionarItem}
@@ -264,10 +281,18 @@ export default function NovoOrcamento() {
               {orcamento.itens.map((item, index) => (
                 <div
                   key={index}
-                  className="text-sm p-2 bg-white border rounded-md"
+                  className="text-sm font-semibold text-slate-600 px-2 py-3 bg-white border rounded-md shadow flex justify-between items-center"
                 >
-                  {item.nome} - {item.marca} ({item.quantidade}{" "}
-                  {item.unidade_medida})
+                  <span>
+                    {item.nome} - {item.quantidade} unidade(s)
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => removerItem(index)}
+                    className="text-red-600 text-xs"
+                  >
+                    Remover
+                  </button>
                 </div>
               ))}
             </div>
@@ -283,7 +308,7 @@ export default function NovoOrcamento() {
               onChange={(e) =>
                 setNovoServico((prev) => ({ ...prev, titulo: e.target.value }))
               }
-              className="w-full border border-slate-300 rounded-lg py-2 px-3 text-sm"
+              className="w-full border border-slate-300 rounded-lg py-3 px-3 text-sm"
             />
             <input
               type="number"
@@ -292,7 +317,7 @@ export default function NovoOrcamento() {
               onChange={(e) =>
                 setNovoServico((prev) => ({ ...prev, preco: e.target.value }))
               }
-              className="w-full border border-slate-300 rounded-lg py-2 px-3 text-sm"
+              className="w-full border border-slate-300 rounded-lg py-3 px-3 text-sm"
             />
 
             <Button
@@ -306,9 +331,10 @@ export default function NovoOrcamento() {
               {orcamento.servicos.map((servico, index) => (
                 <div
                   key={index}
-                  className="text-sm p-2 bg-white border rounded-md"
+                  className="text-sm font-semibold text-slate-600 px-2 py-3 bg-white border rounded-md shadow"
                 >
-                  {servico.titulo} - R$ {servico.preco}
+                  {servico.titulo}
+                  <p className="flex float-end"> R$ {servico.preco}</p>
                 </div>
               ))}
             </div>
@@ -316,11 +342,11 @@ export default function NovoOrcamento() {
 
           <Button
             onClick={handleSubmit}
-            className="w-full bg-green-700 text-white py-3 rounded-md text-base font-semibold shadow-lg"
+            className="w-full bg-blue-900 text-white py-5 rounded-md text-base font-semibold shadow-lg"
           >
             Salvar Orçamento
           </Button>
-        </div>
+        </form>
       </main>
     </SidebarProvider>
   );

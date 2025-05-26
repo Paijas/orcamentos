@@ -121,6 +121,7 @@ export default function SelectCliente() {
               {orcamentos.map((orc) => (
                 <div
                   key={orc.id}
+                  onClick={() => navigate(`/orcamentos/${orc.id}`)}
                   className="bg-white rounded-md shadow p-4 border border-slate-200"
                 >
                   <h4 className="text-blue-800 font-semibold text-base">
