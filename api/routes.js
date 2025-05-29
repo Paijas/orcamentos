@@ -33,6 +33,8 @@ router.delete("/clientes/:id", clienteController.delete);
 
 router.post("/orcamentos", orcamentoController.createOrcamento);
 router.get("/orcamentos", orcamentoController.getAllOrcamentos);
+router.get("/orcamentos/recentes", orcamentoController.getOrcamentosRecentes);
+
 router.put("/orcamentos/:id", orcamentoController.updateOrcamento);
 router.delete("/orcamentos/:id", orcamentoController.deleteOrcamento);
 router.get("/orcamentos/:id", orcamentoController.getOrcamentoById);

@@ -97,9 +97,6 @@ export default function VisualizarOrcamento() {
       <Navbar />
       <div className="p-4 space-y-6">
         <div className="rounded-xl p-4 shadow-inner border bg-white border-blue-200 space-y-1">
-          <div>
-            <span className="material-symbols-outlined   float-end">share</span>
-          </div>
           <h2 className="text-blue-900 text-xl font-bold">{orcamento?.nome}</h2>
           <p className="text-[14px] mt-6 font-semibold text-blue-800">
             Total: R$ {orcamento?.preco_total}
@@ -120,46 +117,48 @@ export default function VisualizarOrcamento() {
           </p>
         </div>
 
-        <div className="w-full flex flex-row gap-4 ">
-          <button
-            onClick={() => navigate(`/orcamentos/editar/${id}`)}
-            className=" text-center  items-center text-blue-600 font-semibold flex-1 py-2 bg-white border border-slate rounded shadow"
-          >
-            Editar
-          </button>
-          <button
-            onClick={() => deleteOrcamento()}
-            className=" text-center  items-center text-red-600 font-semibold flex-1 py-2 bg-white border border-slate rounded shadow"
-          >
-            Deletar
-          </button>
+        <div className="w-full flex flex-col gap-4 ">
+          <div className="flex flex-row gap-4 w-full">
+            {" "}
+            <button
+              onClick={() => navigate(`/orcamentos/editar/${id}`)}
+              className=" text-center  items-center text-blue-600 font-semibold flex-1 py-2 bg-white border border-slate rounded shadow"
+            >
+              Editar
+            </button>
+            <button
+              onClick={() => deleteOrcamento()}
+              className=" text-center  items-center text-red-600 font-semibold flex-1 py-2 bg-white border border-slate rounded shadow"
+            >
+              Deletar
+            </button>
+          </div>
+          {isClient && orcamento ? (
+            <PDFDownloadLink
+              document={<OrcamentoPDF orcamento={orcamento} />}
+              fileName={`Orcamento_${orcamento.id}_${orcamento.nome.replace(
+                /\s+/g,
+                "_"
+              )}.pdf`}
+            >
+              {({ loading }) => (
+                <Button
+                  className="text-center  items-center  font-semibold flex-1 py-5 text-white border border-slate rounded shadow w-full flex bg-blue-800 hover:bg-blue-800"
+                  disabled={loading}
+                >
+                  Gerar Documento
+                </Button>
+              )}
+            </PDFDownloadLink>
+          ) : (
+            <Button
+              className="text-center  items-center  font-semibold flex-1 py-5 text-white border border-slate rounded shadow w-full flex bg-blue-800 hover:bg-blue-800"
+              disabled
+            >
+              Gerar Documento
+            </Button>
+          )}
         </div>
-
-        {isClient && orcamento ? (
-          <PDFDownloadLink
-            document={<OrcamentoPDF orcamento={orcamento} />}
-            fileName={`Orcamento_${orcamento.id}_${orcamento.nome.replace(
-              /\s+/g,
-              "_"
-            )}.pdf`}
-          >
-            {({ loading }) => (
-              <Button
-                className="bg-blue-800 hover:bg-blue-900 w-full"
-                disabled={loading}
-              >
-                {loading ? "Gerando PDF..." : "Gerar e Baixar"}
-              </Button>
-            )}
-          </PDFDownloadLink>
-        ) : (
-          <Button
-            className="bg-blue-800 hover:bg-blue-900 w-full flex"
-            disabled
-          >
-            Gerar e Baixar
-          </Button>
-        )}
 
         <section className="rounded-lg bg-white p-4 shadow border border-slate-200">
           <h3 className="text-blue-900 font-bold text-sm mb-3">Informações</h3>

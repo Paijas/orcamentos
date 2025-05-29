@@ -29,8 +29,8 @@ export default function login() {
   };
 
   return (
-    <div className="flex flex-col bg-blue-950 justify-center items-center min-h-screen">
-      <div className="bg-white w-[22em] flex flex-col h-[26em] items-center px-6 justify-center  rounded">
+    <div className="flex flex-col bg-blue-950 justify-center px-4  items-center min-h-screen">
+      <div className="bg-white w-full flex flex-col h-[26em] items-center px-6 justify-center  rounded">
         <form
           className="w-full flex flex-col"
           onSubmit={(e) => {
@@ -60,10 +60,6 @@ export default function login() {
               className="w-full px-3 py-2 border border-gray-300 rounded text-slate-800 focus:ring-2 focus:ring-blue-300 bg-white appearance-none outline-none focus:outline-none"
               required
             />
-
-            <span className="text-blue-500 cursor-pointer text-sm font-regular">
-              Esqueci minha senha.
-            </span>
           </div>
 
           <button

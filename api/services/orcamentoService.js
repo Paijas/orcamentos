@@ -2,7 +2,6 @@ const { PrismaClient } = require("../generated/prisma");
 const prisma = new PrismaClient();
 
 const createOrcamento = async (data) => {
-  // Validações
   if (!data.nome || data.nome.trim() === "") {
     throw new Error("Nome do orçamento é obrigatório");
   }
@@ -19,7 +18,6 @@ const createOrcamento = async (data) => {
     throw new Error("Preço total não pode ser negativo");
   }
 
-  // Verificar se cliente existe
   const cliente = await prisma.cliente.findUnique({
     where: { id: data.cliente_id },
   });
@@ -27,7 +25,6 @@ const createOrcamento = async (data) => {
     throw new Error("Cliente não encontrado");
   }
 
-  // Verificar se usuário existe
   const usuario = await prisma.usuario.findUnique({
     where: { id: data.usuario_id },
   });
@@ -35,7 +32,6 @@ const createOrcamento = async (data) => {
     throw new Error("Usuário não encontrado");
   }
 
-  // Validar itens
   const avisos = [];
   for (const item of data.itens) {
     if (!item.quantidade || item.quantidade <= 0) {
@@ -54,7 +50,7 @@ const createOrcamento = async (data) => {
       if (!itemCadastrado) {
         throw new Error(`Item com ID ${item.item_id} não encontrado`);
       }
-      // Aviso sobre preço desatualizado
+
       if (item.preco_unitario !== itemCadastrado.preco_unitario) {
         avisos.push(
           `O preço do item "${itemCadastrado.nome}" foi alterado de R$${itemCadastrado.preco_unitario} para R$${item.preco_unitario} no orçamento`
@@ -63,7 +59,6 @@ const createOrcamento = async (data) => {
     }
   }
 
-  // Validar serviços
   for (const servico of data.servicos) {
     if (!servico.titulo || servico.titulo.trim() === "") {
       throw new Error("Título do serviço é obrigatório");
@@ -73,7 +68,6 @@ const createOrcamento = async (data) => {
     }
   }
 
-  // Criar orçamento
   const orcamento = await prisma.orcamento.create({
     data: {
       nome: data.nome,
@@ -172,7 +166,6 @@ const updateOrcamento = async (id, data) => {
     }
   }
 
-  // Verificar se o orçamento existe
   const orcamentoExistente = await prisma.orcamento.findUnique({
     where: { id },
   });
@@ -180,13 +173,11 @@ const updateOrcamento = async (id, data) => {
     throw new Error("Orçamento não encontrado");
   }
 
-  // Atualizar orçamento em uma transação
   const orcamento = await prisma.$transaction(async (tx) => {
     // Deletar itens e serviços antigos
     await tx.orcamentoItem.deleteMany({ where: { orcamento_id: id } });
     await tx.servico.deleteMany({ where: { orcamento_id: id } });
 
-    // Atualizar orçamento e criar novos itens e serviços
     return tx.orcamento.update({
       where: { id },
       data: {
@@ -258,6 +249,27 @@ const getAllOrcamentos = async () => {
   return orcamentos;
 };
 
+const getOrcamentosRecentes = async () => {
+  const orcamentos = await prisma.orcamento.findMany({
+    take: 5,
+    orderBy: {
+      created_at: "desc",
+    },
+    include: {
+      itens: true,
+      servicos: true,
+      cliente: true,
+      usuario: true,
+    },
+  });
+
+  if (!orcamentos || orcamentos.length === 0) {
+    throw new Error("Nenhum orçamento encontrado");
+  }
+
+  return orcamentos;
+};
+
 const getOrcamentoById = async (id) => {
   const orcamento = await prisma.orcamento.findUnique({
     where: { id },
@@ -277,7 +289,6 @@ const getOrcamentoById = async (id) => {
 };
 
 const getOrcamentosByClienteId = async (clienteId) => {
-  // Verificar se o cliente existe
   const cliente = await prisma.cliente.findUnique({
     where: { id: clienteId },
   });
@@ -285,7 +296,6 @@ const getOrcamentosByClienteId = async (clienteId) => {
     throw new Error("Cliente não encontrado");
   }
 
-  // Buscar orçamentos do cliente
   const orcamentos = await prisma.orcamento.findMany({
     where: { cliente_id: clienteId },
     include: {
@@ -306,4 +316,5 @@ module.exports = {
   getOrcamentoById,
   getOrcamentosByClienteId,
   getAllOrcamentos,
+  getOrcamentosRecentes,
 };

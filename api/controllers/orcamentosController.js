@@ -93,6 +93,14 @@ const getAllOrcamentos = async (req, res) => {
     console.log("Erro no Controller");
   }
 };
+const getOrcamentosRecentes = async (req, res) => {
+  try {
+    const orcamentos = await OrcamentoServices.getOrcamentosRecentes();
+    res.status(200).json(orcamentos);
+  } catch (error) {
+    console.log("Erro no Controller");
+  }
+};
 
 module.exports = {
   createOrcamento,
@@ -101,4 +109,5 @@ module.exports = {
   getOrcamentoById,
   getOrcamentosByClienteId,
   getAllOrcamentos,
+  getOrcamentosRecentes,
 };

@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import AxiosInstance from "@/services/AxiosInstance";
 import Navbar from "../../components/navbar";
+
 export default function NovoOrcamento() {
   const navigate = useNavigate();
 
@@ -61,7 +62,6 @@ export default function NovoOrcamento() {
       preco_unitario: "",
       quantidade: "",
       unidade_medida: "",
-      descricao: "",
     });
   };
 
@@ -111,16 +111,21 @@ export default function NovoOrcamento() {
 
       <form className="px-4 py-6 space-y-8">
         <div className="space-y-3">
+          <label className="block text-sm font-medium text-zinc-700">
+            Nome do orçamento
+          </label>
           <input
             type="text"
             required
-            placeholder="Nome do orçamento"
             value={orcamento.nome}
             onChange={(e) =>
               setOrcamento((prev) => ({ ...prev, nome: e.target.value }))
             }
             className="w-full border border-slate-300 rounded-lg py-3 px-3 text-sm"
           />
+          <label className="block text-sm font-medium text-zinc-700">
+            Cliente
+          </label>
           <select
             value={orcamento.cliente_id}
             required
@@ -139,6 +144,9 @@ export default function NovoOrcamento() {
               </option>
             ))}
           </select>
+          <label className="block text-sm font-medium text-zinc-700">
+            Data de validade
+          </label>
           <input
             type="date"
             required
@@ -151,9 +159,11 @@ export default function NovoOrcamento() {
             }
             className="w-full border border-slate-300 rounded-lg py-3 px-3 text-sm"
           />
+          <label className="block text-sm font-medium text-zinc-700">
+            Meios de pagamento
+          </label>
           <input
             type="text"
-            placeholder="Meios de pagamento"
             value={orcamento.meios_pagamento}
             onChange={(e) =>
               setOrcamento((prev) => ({
@@ -163,9 +173,11 @@ export default function NovoOrcamento() {
             }
             className="w-full border border-slate-300 rounded-lg py-3 px-3 text-sm"
           />
+          <label className="block text-sm font-medium text-zinc-700">
+            Período de garantia
+          </label>
           <input
             type="text"
-            placeholder="Período de garantia"
             value={orcamento.periodo_garantia}
             onChange={(e) =>
               setOrcamento((prev) => ({
@@ -180,6 +192,9 @@ export default function NovoOrcamento() {
         <div className="space-y-4">
           <h2 className="text-lg font-semibold">Itens</h2>
 
+          <label className="block text-sm font-medium text-zinc-700">
+            Selecionar item recorrente
+          </label>
           <select
             onChange={(e) => {
               const itemSelecionado = itensRecorrentes.find(
@@ -206,55 +221,74 @@ export default function NovoOrcamento() {
           </select>
 
           <div className="grid grid-cols-2 gap-2">
-            <input
-              type="text"
-              placeholder="Nome"
-              value={novoItem.nome}
-              required
-              onChange={(e) =>
-                setNovoItem((prev) => ({ ...prev, nome: e.target.value }))
-              }
-              className="border border-slate-300 rounded-lg py-3 px-3 text-sm"
-            />
-            <input
-              type="text"
-              placeholder="Marca"
-              value={novoItem.marca}
-              onChange={(e) =>
-                setNovoItem((prev) => ({ ...prev, marca: e.target.value }))
-              }
-              className="border border-slate-300 rounded-lg py-3 px-3 text-sm"
-            />
-            <input
-              type="number"
-              required
-              placeholder="Preço Unitário"
-              value={novoItem.preco_unitario}
-              onChange={(e) =>
-                setNovoItem((prev) => ({
-                  ...prev,
-                  preco_unitario: e.target.value,
-                }))
-              }
-              className="border border-slate-300 rounded-lg py-3 px-3 text-sm"
-            />
-            <input
-              type="number"
-              placeholder="Quantidade"
-              required
-              value={novoItem.quantidade}
-              onChange={(e) =>
-                setNovoItem((prev) => ({
-                  ...prev,
-                  quantidade: e.target.value,
-                }))
-              }
-              className="border border-slate-300 rounded-lg py-3 px-3 text-sm"
-            />
+            <div>
+              <label className="block text-sm font-medium text-zinc-700">
+                Nome
+              </label>
+              <input
+                type="text"
+                value={novoItem.nome}
+                required
+                onChange={(e) =>
+                  setNovoItem((prev) => ({ ...prev, nome: e.target.value }))
+                }
+                className="border border-slate-300 rounded-lg py-3 px-3 text-sm w-full"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-zinc-700">
+                Marca
+              </label>
+              <input
+                type="text"
+                value={novoItem.marca}
+                onChange={(e) =>
+                  setNovoItem((prev) => ({ ...prev, marca: e.target.value }))
+                }
+                className="border border-slate-300 rounded-lg py-3 px-3 text-sm w-full"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-zinc-700">
+                Preço Unitário
+              </label>
+              <input
+                type="number"
+                required
+                value={novoItem.preco_unitario}
+                onChange={(e) =>
+                  setNovoItem((prev) => ({
+                    ...prev,
+                    preco_unitario: e.target.value,
+                  }))
+                }
+                className="border border-slate-300 rounded-lg py-3 px-3 text-sm w-full"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-zinc-700">
+                Quantidade
+              </label>
+              <input
+                type="number"
+                required
+                value={novoItem.quantidade}
+                onChange={(e) =>
+                  setNovoItem((prev) => ({
+                    ...prev,
+                    quantidade: e.target.value,
+                  }))
+                }
+                className="border border-slate-300 rounded-lg py-3 px-3 text-sm w-full"
+              />
+            </div>
           </div>
+
+          <label className="block text-sm font-medium text-zinc-700">
+            Unidade de Medida
+          </label>
           <input
             type="text"
-            placeholder="Unidade de Medida"
             value={novoItem.unidade_medida}
             onChange={(e) =>
               setNovoItem((prev) => ({
@@ -294,26 +328,36 @@ export default function NovoOrcamento() {
         </div>
 
         <div className="space-y-4">
-          <h2 className="text-lg font-semibold">Serviços</h2>
+          <div className="flex flex-col gap-2">
+            <h2 className="text-lg font-semibold">Serviços</h2>
 
-          <input
-            type="text"
-            placeholder="Título do serviço"
-            value={novoServico.titulo}
-            onChange={(e) =>
-              setNovoServico((prev) => ({ ...prev, titulo: e.target.value }))
-            }
-            className="w-full border border-slate-300 rounded-lg py-3 px-3 text-sm"
-          />
-          <input
-            type="number"
-            placeholder="Preço"
-            value={novoServico.preco}
-            onChange={(e) =>
-              setNovoServico((prev) => ({ ...prev, preco: e.target.value }))
-            }
-            className="w-full border border-slate-300 rounded-lg py-3 px-3 text-sm"
-          />
+            <label className="block text-sm font-medium text-zinc-700">
+              Título do serviço
+            </label>
+            <input
+              type="text"
+              value={novoServico.titulo}
+              onChange={(e) =>
+                setNovoServico((prev) => ({ ...prev, titulo: e.target.value }))
+              }
+              className="w-full border border-slate-300 rounded-lg py-3 px-3 text-sm"
+            />
+          </div>
+
+          <div className="flex flex-col gap-2">
+            {" "}
+            <label className="block text-sm font-medium text-zinc-700">
+              Preço
+            </label>
+            <input
+              type="number"
+              value={novoServico.preco}
+              onChange={(e) =>
+                setNovoServico((prev) => ({ ...prev, preco: e.target.value }))
+              }
+              className="w-full border border-slate-300 rounded-lg py-3 px-3 text-sm"
+            />
+          </div>
 
           <Button
             onClick={adicionarServico}
