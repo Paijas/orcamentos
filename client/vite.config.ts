@@ -9,7 +9,7 @@ export default defineConfig({
   plugins: [
     react(),
     VitePWA({
-      // --- Estratégia de Registro e Atualização ---
+
       registerType: 'autoUpdate', // Mantém a atualização automática
       injectRegister: 'auto', // MUDEI: Deixa o plugin injetar o registro do SW. Mais fácil!
 
